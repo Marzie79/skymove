@@ -5,8 +5,22 @@ from accounts.serializers import ProfileSerializer
 
 class AuthorModelTest(TestCase):
     @classmethod
+    # def setUp(self):
+    #     # Set up non-modified objects used by all test methods
+    #     self.j_son = {
+    #         "email": "farhad@gmil.com",
+    #         "password": "1234567F",
+    #         "nationality": "0037765786",
+    #         "first_name": "Farhad",
+    #         "last_name": "Zand",
+    #         "phone_number": "09379870098",
+    #         "company_name": "Asiya",
+    #         "validation": "asikks"
+    #     }
+    #     self.user = User.objects.create(**self.j_son)
+    #     self.serializer = User.objects.create(**self.j_son)
+
     def setUpTestData(cls):
-        # Set up non-modified objects used by all test methods
         User.objects.create(email='mz00@gmail.com', password='12345678M', nationality='002301', first_name='مرضیه',
                             last_name='معصوم زاده', phone_number='0937797', company_name='saran', validation='')
 
@@ -40,8 +54,10 @@ class AuthorModelTest(TestCase):
 
     def test_first_name_max_length(self):
         user = User.objects.get(id=1)
-        max_length = user._meta.get_field('first_name').max_length
-        self.assertEquals(max_length, 30)
+        max_length_last_name = user._meta.get_field('last_name').max_length
+        max_length_first_name = user._meta.get_field('first_name').max_length
+        self.assertEquals(max_length_first_name, 30)
+        self.assertEquals(max_length_last_name, 30)
 
     def test_object_name_is_last_name_comma_first_name(self):
         user = User.objects.get(id=1)
