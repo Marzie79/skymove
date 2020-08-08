@@ -5,13 +5,15 @@ from utils.custom_fields import FarsiCharField
 
 
 class User(AbstractBaseUser):
-    nationality = models.CharField(max_length=10, unique=True)
+    nationality = models.CharField(max_length=10, unique=True, error_messages={
+        'unique': '600'})
     first_name = FarsiCharField(max_length=30)
     last_name = FarsiCharField(max_length=30)
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255, unique=True, error_messages={
+        'unique': '601'})
     phone_number = models.CharField(max_length=11)
     company_name = FarsiCharField(max_length=40, null=True, blank=True)
-    validation = models.CharField(max_length=8, null=True, blank=True)
+    validation = models.CharField(max_length=6, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
