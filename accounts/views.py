@@ -26,23 +26,23 @@ class Sign_in(APIView):
                 user = User.objects.get(email=request.data['email'])
             except User.DoesNotExist:
                 # if the email isn't valid in database response 404
-                return Response(status=status.HTTP_404_NOT_FOUND, data={"status": "404"})
+                return Response(status=status.HTTP_404_NOT_FOUND)
             user_set = authenticate(
                 email=request.data['email'], password=request.data['password'])
             if user.is_active:
                 if user_set is not None:
                     login(request, user)
                     # everything is ok then response 200
-                    return Response(status=status.HTTP_200_OK, data={"status": "200"})
+                    return Response(status=status.HTTP_200_OK)
                 else:
                     # if password for that existing email isn't correct response 406
-                    return Response(status=status.HTTP_406_NOT_ACCEPTABLE, data={"status": "406"})
+                    return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
             else:
                 # if user doesn't validate email
-                return Response(status=status.HTTP_401_UNAUTHORIZED, data={"status": "401"})
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
         else:
             # email doesn't exist in request
-            return Response(status=status.HTTP_400_BAD_REQUEST, data={"status": "400"})
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class Log_out(APIView):
