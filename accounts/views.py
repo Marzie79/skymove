@@ -1,50 +1,53 @@
-from django.contrib.auth.decorators import login_required
-from rest_framework import generics, permissions, status
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework import generics, permissions
+from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
+from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.contrib.auth.models import User
-from rest_framework import authentication
-from rest_framework import exceptions
-from django.contrib.auth.models import User
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import exceptions
-from rest_framework import authentication
-from django.contrib import auth
-from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from accounts.serializers import *
+from accounts.serializers import ProfileSerializer
 
 
-class SignUp(generics.CreateAPIView):
+class Sign_up(generics.CreateAPIView):
     serializer_class = ProfileSerializer
     permission_classes = (permissions.AllowAny,)
 
 
 @permission_classes((AllowAny,))
-class SignIn(APIView):
+class Sign_in(APIView):
     renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
 
     def post(self, request):
+        # email should have a value
         if request.data['email']:
             try:
                 user = User.objects.get(email=request.data['email'])
             except User.DoesNotExist:
-                return Response(status=status.HTTP_404_NOT_FOUND)
+                # if the email isn't valid in database response 404
+                return Response(status=status.HTTP_404_NOT_FOUND, data={"status": "404"})
             user_set = authenticate(
                 email=request.data['email'], password=request.data['password'])
-            if user_set is not None:
-                login(request, user)
-                return Response(status=status.HTTP_200_OK)
+            if user.is_active:
+                if user_set is not None:
+                    login(request, user)
+                    # everything is ok then response 200
+                    return Response(status=status.HTTP_200_OK, data={"status": "200"})
+                else:
+                    # if password for that existing email isn't correct response 406
+                    return Response(status=status.HTTP_406_NOT_ACCEPTABLE, data={"status": "406"})
             else:
-                return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+                # if user doesn't validate email
+                return Response(status=status.HTTP_401_UNAUTHORIZED, data={"status": "401"})
         else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            # email doesn't exist in request
+            return Response(status=status.HTTP_400_BAD_REQUEST, data={"status": "400"})
 
+
+class Log_out(APIView):
+    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+
+    def post(self, request):
+        logout(request)
+        return Response(status=status.HTTP_200_OK)

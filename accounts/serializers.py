@@ -1,6 +1,21 @@
 from rest_framework import serializers
-from accounts.util import random_generator
 from accounts.models import *
+from rest_framework.exceptions import APIException
+from django.utils.encoding import force_text
+from rest_framework import status
+from validate_email import validate_email
+
+
+class CustomValidation(APIException):
+    status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+    default_detail = 'A server error occurred.'
+
+    def __init__(self, detail, field, status_code):
+        if status_code is not None: self.status_code = status_code
+        if detail is not None:
+            self.detail = {field: force_text(detail)}
+        else:
+            self.detail = {'detail': force_text(self.default_detail)}
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -8,27 +23,13 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'password', 'nationality', 'first_name', 'last_name', 'phone_number',
-                  'company_name', 'validation']
+                  'company_name']
         extra_kwargs = {'password': {'write_only': True}}
 
-    # def create(self, validated_data):
-    #     return User.objects.create_user(**validated_data)
-
-    def validate(self, data):
-        data['validation'] = random_generator()
-        return data
-
     def create(self, validated_data):
-        user = User.objects.create(
-            email=validated_data['email'],
-            nationality=validated_data['nationality'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            phone_number=validated_data['phone_number'],
-            company_name=validated_data['company_name'],
-            validation=random_generator()
-        )
-        # mabey we need it for validation
-        user.save()
-        user.set_password(validated_data['password'])
-        return user
+        # check that email is valid in internet
+        is_valid = validate_email(validated_data['email'])
+        if not is_valid:
+            # if email is not valid in internet return 406 status code
+            raise CustomValidation('email is not exist', 'email', status_code=status.HTTP_406_NOT_ACCEPTABLE)
+        return User.objects.create_user(**validated_data)
