@@ -55,11 +55,9 @@ class AuthorModelTest(TestCase):
         max_length_last_name = user._meta.get_field('last_name').max_length
         max_length_first_name = user._meta.get_field('first_name').max_length
         max_length_nationality = user._meta.get_field('nationality').max_length
-        max_length_phone_number = user._meta.get_field('phone_number').max_length
         self.assertEquals(max_length_first_name, 30)
         self.assertEquals(max_length_last_name, 30)
-        self.assertEquals(max_length_nationality, 10)
-        self.assertEquals(max_length_phone_number, 11)
+        self.assertEquals(max_length_nationality, 2)
 
     def test_object_name_is_last_name_comma_first_name(self):
         user = User.objects.get(id=1)
@@ -81,4 +79,3 @@ class AuthorModelTest(TestCase):
         self.assertEquals(phone_number, user.phone_number)
 
     # def test_view_url_exists_at_desired_location(self):
-
