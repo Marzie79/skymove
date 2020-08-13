@@ -33,8 +33,9 @@ class Sign_in(APIView):
             if user.is_validate:
                 if user_set is not None:
                     # everything is ok then response 200
+                    token, created = Token.objects.get_or_create(user=user)
                     return Response(status=status.HTTP_200_OK,
-                                    data={'message': 'user login', 'token': Token.objects.get_or_create(user=user).key})
+                                    data={'message': 'user login', 'token': token.key})
                 else:
                     # if password for that existing email isn't correct response 406
                     return Response(status=status.HTTP_406_NOT_ACCEPTABLE, data={'message': 'password is not correct'})
