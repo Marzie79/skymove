@@ -1,5 +1,6 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets
 from django.contrib.auth import authenticate
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from django.contrib.auth.models import User
 from rest_framework.response import Response
@@ -34,8 +35,7 @@ class Sign_in(APIView):
                 if user_set is not None:
                     # everything is ok then response 200
                     token, created = Token.objects.get_or_crreeate(user=user)
-                    return Response(status=status.HTTP_200_OK,
-                                    data={'token': token.key})
+                    return Response(status=status.HTTP_200_OK, data={'token': token.key})
                 else:
                     # if password for that existing email isn't correct response 406
                     return Response(status=status.HTTP_406_NOT_ACCEPTABLE, data={'message': 'password is not correct'})
@@ -57,11 +57,14 @@ class Validate_Email(APIView):
             if 'validation' in request.data.keys():
                 try:
                     user = User.objects.get(email=request.data['email'])
-
-                    if user.is_validate:
+                    if user.is_validate and user.email_2 is None:
                         return Response(status=status.HTTP_409_CONFLICT, data={'message': 'user is validate now'})
 
                     if user.validation == request.data['validation']:
+                        if user.email_2 is not None:
+                            user.email = user.email_2
+                            user.email_2 = None
+
                         user.is_validate = True
                         user.save()
                     else:
@@ -74,15 +77,22 @@ class Validate_Email(APIView):
                     return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
             else:
                 try:
-                    user = User.objects.get(email=request.data['email'])
+                    if request.user.is_authenticated:
+                        user = request.user
+                        user.email_2 = request.data['email']
+                        user.save()
+                    else:
+                        user = User.objects.get(email=request.data['email'])
 
-                    if user.is_validate:
+                    if user.is_validate and user.email_2 is None:
                         return Response(status=status.HTTP_409_CONFLICT, data={'message': 'user is validate now'})
 
                     user.validation = get_random_string(length=6)
                     user.save()
-                    message = sending_email(user.validation, user.email, 'sender_email', 'sender_password')
-
+                    if request.user.is_authenticated:
+                        message = sending_email(user.validation, user.email_2, 'sender_email', 'sender_password')
+                    else:
+                        message = sending_email(user.validation, user.email, 'sender_email', 'sender_password')
                     if message is not None:
                         return Response(status=status.HTTP_404_NOT_FOUND,
                                         data={'message': 'server has error try again'})
@@ -94,3 +104,20 @@ class Validate_Email(APIView):
                     return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': 'email field is required'})
+
+
+class Edit_Profile(viewsets.ModelViewSet):
+    serializer_class = ProfileSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
+
+    def update(self, request, *args, **kwargs):
+        instance = request.user
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)

@@ -54,7 +54,7 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('is_admin',)
     fieldsets = (
         (None, {'fields': (
-            'validation', 'first_name', 'last_name', 'nationality', 'phone_number', 'email', 'company_name',
+            'validation', 'first_name', 'last_name', 'nationality', 'phone_number', 'email', 'email_2', 'company_name',
             'password')}),
         ('Permission', {'fields': ('is_admin', 'is_active', 'is_validate')}),
     )
