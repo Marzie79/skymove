@@ -1,22 +1,9 @@
-from rest_framework import serializers
-from rest_framework.serializers import raise_errors_on_nested_writes
+from accounts.views import *
 from accounts.models import *
-from rest_framework.exceptions import APIException
-from django.utils.encoding import force_text
-from rest_framework import status
 from validate_email import validate_email
-
-
-class CustomValidation(APIException):
-    status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-    default_detail = 'A server error occurred.'
-
-    def __init__(self, detail, field, status_code):
-        if status_code is not None: self.status_code = status_code
-        if detail is not None:
-            self.detail = {field: force_text(detail)}
-        else:
-            self.detail = {'detail': force_text(self.default_detail)}
+from rest_framework import serializers
+from rest_framework import status
+from rest_framework.serializers import raise_errors_on_nested_writes
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -46,3 +33,9 @@ class ProfileSerializer(serializers.ModelSerializer):
                 setattr(instance, attr, value)
         instance.save()
         return instance
+
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = '__all__'

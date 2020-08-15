@@ -48,3 +48,10 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+
+class Contact(models.Model):
+    name = FarsiCharField(max_length=60)
+    email = models.EmailField(validators=[validate_email], max_length=255)
+    phone_number = PhoneField()
+    message = models.TextField()

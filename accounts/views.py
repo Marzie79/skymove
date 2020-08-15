@@ -1,15 +1,17 @@
-from rest_framework import generics, permissions, viewsets
-from django.contrib.auth import authenticate
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
-from django.contrib.auth.models import User
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from accounts.serializers import *
 from accounts.serializers import ProfileSerializer
-from rest_framework.authtoken.models import Token
-from django.utils.crypto import get_random_string
+from django.utils.encoding import force_text
 from accounts.util import sending_email
+from rest_framework import generics, permissions, viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
+from rest_framework.exceptions import APIException
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
+from django.utils.crypto import get_random_string
 
 
 class Sign_up(generics.CreateAPIView):
@@ -34,7 +36,7 @@ class Sign_in(APIView):
             if user.is_validate:
                 if user_set is not None:
                     # everything is ok then response 200
-                    token, created = Token.objects.get_or_crreeate(user=user)
+                    token, created = Token.objects.get_or_create(user=user)
                     return Response(status=status.HTTP_200_OK, data={'token': token.key})
                 else:
                     # if password for that existing email isn't correct response 406
@@ -121,3 +123,26 @@ class Edit_Profile(viewsets.ModelViewSet):
             instance._prefetched_objects_cache = {}
 
         return Response(serializer.data)
+
+
+class Contact_Us(generics.CreateAPIView):
+    serializer_class = ContactSerializer
+    permission_classes = (permissions.AllowAny,)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return Response(status=status.HTTP_201_CREATED, data={'message': 'the message is saved'})
+
+
+class CustomValidation(APIException):
+    status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+    default_detail = 'A server error occurred.'
+
+    def __init__(self, detail, field, status_code):
+        if status_code is not None: self.status_code = status_code
+        if detail is not None:
+            self.detail = {field: force_text(detail)}
+        else:
+            self.detail = {'detail': force_text(self.default_detail)}
