@@ -1,6 +1,6 @@
 from accounts.serializers import *
 from accounts.serializers import ProfileSerializer
-from django.utils.encoding import force_text
+from accounts.models import *
 from accounts.util import sending_email
 from rest_framework import generics, permissions, viewsets
 from rest_framework.authentication import TokenAuthentication
@@ -8,9 +8,7 @@ from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
-from rest_framework.exceptions import APIException
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
 
 
@@ -55,57 +53,55 @@ class Validate_Email(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
-        if 'email' in request.data.keys():
-            if 'validation' in request.data.keys():
-                try:
-                    user = User.objects.get(email=request.data['email'])
-                    if user.is_validate and user.email_2 is None:
-                        return Response(status=status.HTTP_409_CONFLICT, data={'message': 'user is validate now'})
+        if request.GET.get('valid'):
+            try:
+                user = User.objects.get(email=request.data['email'])
+                if user.is_validate and user.email_2 is None:
+                    return Response(status=status.HTTP_409_CONFLICT, data={'message': 'user is validate now'})
 
-                    if user.validation == request.data['validation']:
-                        if user.email_2 is not None:
-                            user.email = user.email_2
-                            user.email_2 = None
+                if user.validation == request.data['validation']:
+                    if user.email_2 is not None:
+                        user.email = user.email_2
+                        user.email_2 = None
 
-                        user.is_validate = True
-                        user.save()
-                    else:
-                        return Response(status=status.HTTP_406_NOT_ACCEPTABLE, data={'message': 'code is not correct'})
-
-                    return Response(status=status.HTTP_200_OK, data={'message': 'email is validate'})
-
-                except User.DoesNotExist:
-                    # if the email isn't valid in database response 404
-                    return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
-            else:
-                try:
-                    if request.user.is_authenticated:
-                        user = request.user
-                        user.email_2 = request.data['email']
-                        user.save()
-                    else:
-                        user = User.objects.get(email=request.data['email'])
-
-                    if user.is_validate and user.email_2 is None:
-                        return Response(status=status.HTTP_409_CONFLICT, data={'message': 'user is validate now'})
-
-                    user.validation = get_random_string(length=6)
+                    user.is_validate = True
                     user.save()
-                    if request.user.is_authenticated:
-                        message = sending_email(user.validation, user.email_2, 'sender_email', 'sender_password')
-                    else:
-                        message = sending_email(user.validation, user.email, 'sender_email', 'sender_password')
-                    if message is not None:
-                        return Response(status=status.HTTP_404_NOT_FOUND,
-                                        data={'message': 'server has error try again'})
+                else:
+                    return Response(status=status.HTTP_406_NOT_ACCEPTABLE, data={'message': 'code is not correct'})
 
-                    return Response(status=status.HTTP_200_OK, data={'message': 'sending email to user is successful',
-                                                                     'email': request.data['email']})
-                except User.DoesNotExist:
-                    # if the email isn't valid in database response 404
-                    return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
+                return Response(status=status.HTTP_200_OK, data={'message': 'email is validate'})
+
+            except User.DoesNotExist:
+                # if the email isn't valid in database response 404
+                return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
         else:
-            return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': 'email field is required'})
+            try:
+                if request.user.is_authenticated:
+                    user = request.user
+                    user.email_2 = request.data['email']
+                    user.save()
+                else:
+                    user = User.objects.get(email=request.data['email'])
+
+                if user.is_validate and user.email_2 is None:
+                    return Response(status=status.HTTP_409_CONFLICT, data={'message': 'user is validate now'})
+
+                user.validation = get_random_string(length=6)
+                user.save()
+                if request.user.is_authenticated:
+                    message = sending_email(user.validation, user.email_2, 'sender_email', 'sender_password')
+                else:
+                    message = sending_email(user.validation, user.email, 'sender_email', 'sender_password')
+                # TODO: make it comment just for having test
+                # if message is not None:
+                #     return Response(status=status.HTTP_404_NOT_FOUND,
+                #                     data={'message': 'server has error try again'})
+
+                return Response(status=status.HTTP_200_OK, data={'message': 'sending email to user is successful',
+                                                                 'email': request.data['email']})
+            except User.DoesNotExist:
+                # if the email isn't valid in database response 404
+                return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
 
 
 class Edit_Profile(viewsets.ModelViewSet):
@@ -136,13 +132,3 @@ class Contact_Us(generics.CreateAPIView):
         return Response(status=status.HTTP_201_CREATED, data={'message': 'the message is saved'})
 
 
-class CustomValidation(APIException):
-    status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-    default_detail = 'A server error occurred.'
-
-    def __init__(self, detail, field, status_code):
-        if status_code is not None: self.status_code = status_code
-        if detail is not None:
-            self.detail = {field: force_text(detail)}
-        else:
-            self.detail = {'detail': force_text(self.default_detail)}

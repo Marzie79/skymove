@@ -1,9 +1,10 @@
 from django.test import TestCase
+from accounts.serializers import *
 from accounts.models import User
-from accounts.serializers import ProfileSerializer
 
 
 class AuthorModelTest(TestCase):
+
     # def setUp(self):
     #     # Set up non-modified objects used by all test methods
     #     self.j_son = {
@@ -19,9 +20,20 @@ class AuthorModelTest(TestCase):
     #     self.user = User.objects.create(**self.j_son)
     #     self.serializer = User.objects.create(**self.j_son)
     @classmethod
-    def setUpTestData(cls):
-        User.objects.create(email='mz00@gmail.com', password='12345678M', nationality='002301', first_name='مرضیه',
-                            last_name='معصوم زاده', phone_number='0937797', company_name='saran')
+    def setUp(self):
+        self.j_son = {
+            "email": "marzie.7900@gmail.com",
+            "password": "1234567F",
+            "nationality": "IR",
+            "first_name": "Farhad",
+            "last_name": "Zand",
+            "phone_number": "09379870098",
+            "company_name": "Asiya"
+        }
+
+        self.user = User.objects.create(email='mz00@gmail.com', password='12345678M', nationality='002301',
+                                        first_name='مرضیه',
+                                        last_name='معصوم زاده', phone_number='0937797', company_name='saran')
 
     def test_serializer_not_send_password(self):
         user = User.objects.get(pk=1)
@@ -78,4 +90,21 @@ class AuthorModelTest(TestCase):
         self.assertEquals(nationality, user.nationality)
         self.assertEquals(phone_number, user.phone_number)
 
-    # def test_view_url_exists_at_desired_location(self):
+    def test_sign_up_correct_data(self):
+        response = self.client.post(path='/accounts/signup/', data=self.j_son)
+        self.assertEquals(response.status_code, 201)
+
+    def test_not_unique_email(self):
+        repeat = {
+            "email": "mz00@gmail.com",
+            "password": "1234567M",
+            "nationality": "IR",
+            "first_name": "Farhad",
+            "last_name": "Zand",
+            "phone_number": "09379870098",
+            "company_name": "Asiya"
+        }
+        response = self.client.post(path='/accounts/signup/', data=repeat)
+        self.assertEquals(response.status_code, 400)
+
+
