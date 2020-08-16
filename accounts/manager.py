@@ -12,7 +12,6 @@ class UserManager(BaseUserManager):
         # set an algorithm to not show password directely
         user.set_password(password)
         user.save(using=self._db)
-        # making token for user
         return user
 
     # fields that we want get it from user when we want to create superuser

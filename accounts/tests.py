@@ -32,8 +32,10 @@ class AuthorModelTest(TestCase):
         }
 
         self.user = User.objects.create(email='mz00@gmail.com', password='12345678M', nationality='002301',
-                                        first_name='مرضیه',
-                                        last_name='معصوم زاده', phone_number='0937797', company_name='saran')
+                                        first_name='مرضیه', last_name='معصوم زاده', phone_number='0937797',
+                                        company_name='saran', is_validate=True)
+        self.user.set_password(self.user.password)
+        self.user.save()
 
     def test_serializer_not_send_password(self):
         user = User.objects.get(pk=1)
@@ -94,7 +96,7 @@ class AuthorModelTest(TestCase):
         response = self.client.post(path='/accounts/signup/', data=self.j_son)
         self.assertEquals(response.status_code, 201)
 
-    def test_not_unique_email(self):
+    def test_not_unique_email_for_sign_up(self):
         repeat = {
             "email": "mz00@gmail.com",
             "password": "1234567M",
@@ -107,4 +109,10 @@ class AuthorModelTest(TestCase):
         response = self.client.post(path='/accounts/signup/', data=repeat)
         self.assertEquals(response.status_code, 400)
 
-
+    def test_sign_in_correct_data(self):
+        person = {
+            "email": "mz00@gmail.com",
+            "password": "12345678M"
+        }
+        response = self.client.post(path='/accounts/signin/', data=person)
+        self.assertEquals(response.status_code, 200)
