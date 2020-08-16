@@ -22,7 +22,7 @@ class Sign_in(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
-        if request.data['email']:
+        if 'email' in request.data:
             try:
                 user = User.objects.get(email=request.data['email'])
 
@@ -94,7 +94,7 @@ class Validate_Email(APIView):
                     message = sending_email(user.validation, user.email, 'sender_email', 'sender_password')
                 # TODO: make it comment just for having test
                 # if message is not None:
-                #     return Response(status=status.HTTP_404_NOT_FOUND,
+                #     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 #                     data={'message': 'server has error try again'})
 
                 return Response(status=status.HTTP_200_OK, data={'message': 'sending email to user is successful',
@@ -130,5 +130,3 @@ class Contact_Us(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         return Response(status=status.HTTP_201_CREATED, data={'message': 'the message is saved'})
-
-

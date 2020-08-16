@@ -5,20 +5,6 @@ from accounts.models import User
 
 class AuthorModelTest(TestCase):
 
-    # def setUp(self):
-    #     # Set up non-modified objects used by all test methods
-    #     self.j_son = {
-    #         "email": "farhad@gmil.com",
-    #         "password": "1234567F",
-    #         "nationality": "0037765786",
-    #         "first_name": "Farhad",
-    #         "last_name": "Zand",
-    #         "phone_number": "09379870098",
-    #         "company_name": "Asiya",
-    #         "validation": "asikks"
-    #     }
-    #     self.user = User.objects.create(**self.j_son)
-    #     self.serializer = User.objects.create(**self.j_son)
     @classmethod
     def setUp(self):
         self.j_son = {
@@ -33,9 +19,15 @@ class AuthorModelTest(TestCase):
 
         self.user = User.objects.create(email='mz00@gmail.com', password='12345678M', nationality='002301',
                                         first_name='مرضیه', last_name='معصوم زاده', phone_number='0937797',
-                                        company_name='saran', is_validate=True)
+                                        company_name='saran', is_validate=True, validation='abcdef')
         self.user.set_password(self.user.password)
         self.user.save()
+
+        self.user1 = User.objects.create(email='maz00@gmail.com', password='12345678M', nationality='002301',
+                                         first_name='سایه', last_name='نصیری', phone_number='0937797',
+                                         company_name='saran', is_validate=False)
+        self.user1.set_password(self.user.password)
+        self.user1.save()
 
     def test_serializer_not_send_password(self):
         user = User.objects.get(pk=1)
@@ -116,3 +108,91 @@ class AuthorModelTest(TestCase):
         }
         response = self.client.post(path='/accounts/signin/', data=person)
         self.assertEquals(response.status_code, 200)
+
+    def test_sign_in_wrong_password(self):
+        person = {
+            "email": "mz00@gmail.com",
+            "password": "12345678"
+        }
+        response = self.client.post(path='/accounts/signin/', data=person)
+        self.assertEquals(response.status_code, 406)
+
+    def test_sign_in_bad_request(self):
+        person = {
+            "password": "12345678M"
+        }
+        response = self.client.post(path='/accounts/signin/', data=person)
+        self.assertEquals(response.status_code, 400)
+
+    def test_sign_in_email_is_not_exist(self):
+        person = {
+            "email": "alireza7900@gmail.com",
+            "password": "12345678M"
+        }
+        response = self.client.post(path='/accounts/signin/', data=person)
+        self.assertEquals(response.status_code, 404)
+
+    def test_sign_in_user_is_not_validate(self):
+        person = {
+            "email": "maz00@gmail.com",
+            "password": "12345678M"
+        }
+        response = self.client.post(path='/accounts/signin/', data=person)
+        self.assertEquals(response.status_code, 401)
+
+    def test_validate_email_for_first_time(self):
+        person = {
+            "email": "maz00@gmail.com"
+        }
+        response = self.client.post(path='/accounts/validate_email/', data=person)
+        self.assertEquals(response.status_code, 200)
+
+    def test_validate_email_when_user_is_valid(self):
+        person = {
+            "email": "mz00@gmail.com"
+        }
+        response = self.client.post(path='/accounts/validate_email/', data=person)
+        self.assertEquals(response.status_code, 409)
+
+    def test_validate_email_with_none_exist_email(self):
+        person = {
+            "email": "m00@gmail.com"
+        }
+        response = self.client.post(path='/accounts/validate_email/', data=person)
+        self.assertEquals(response.status_code, 404)
+
+    def test_validate_email_when_it_is_valid(self):
+        person = {
+            "email": "mz00@gmail.com",
+            "validation": "abcdef"
+        }
+        response = self.client.post(path='/accounts/validate_email/?valid=nckvn', data=person)
+        self.assertEquals(response.status_code, 409)
+
+    def test_validate_email_when_email_does_not_exist(self):
+        person = {
+            "email": "m00@gmail.com",
+            "validation": "abcdef"
+        }
+        response = self.client.post(path='/accounts/validate_email/?valid=nckvn', data=person)
+        self.assertEquals(response.status_code, 404)
+
+    def test_validate_email_set_correct_validate_code(self):
+        self.user1.validation = 'abcdef'
+        self.user1.save()
+        person = {
+            "email": "maz00@gmail.com",
+            "validation": self.user1.validation
+        }
+        response = self.client.post(path='/accounts/validate_email/?valid=asc', data=person)
+        self.assertEquals(response.status_code, 200)
+
+    def test_validate_email_set_wrong_validate_code(self):
+        self.user1.validation = 'abcdef'
+        self.user1.save()
+        person = {
+            "email": "maz00@gmail.com",
+            "validation": "dfm.e"
+        }
+        response = self.client.post(path='/accounts/validate_email/?valid=asc', data=person)
+        self.assertEquals(response.status_code, 406)
