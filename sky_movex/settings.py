@@ -26,8 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_countries',
-    'validate_email',
 
+    'drf_yasg',
+    'validate_email',
     'corsheaders',
     'phone_field',
     'rest_framework',
