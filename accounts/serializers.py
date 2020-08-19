@@ -7,6 +7,16 @@ from django.utils.encoding import force_text
 from rest_framework.exceptions import APIException
 
 
+class LogInSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(max_length=128)
+
+
+class ValidationSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    validate = serializers.CharField(max_length=6)
+
+
 class ProfileSerializer(serializers.ModelSerializer):
     # readonly is used by default in ModelSerializer
     class Meta:

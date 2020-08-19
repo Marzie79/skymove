@@ -17,15 +17,15 @@ class Sign_up(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)
 
 
-class Sign_in(APIView):
+class Log_in(generics.GenericAPIView):
     renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
     permission_classes = (permissions.AllowAny,)
+    serializer_class = LogInSerializer
 
     def post(self, request):
         if 'email' in request.data:
             try:
                 user = User.objects.get(email=request.data['email'])
-
             except User.DoesNotExist:
                 # if the email isn't valid in database response 404
                 return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
@@ -91,11 +91,11 @@ class Validate_Email(APIView):
                 if request.user.is_authenticated:
                     message = sending_email(user.validation, user.email_2, 'sender_email', 'sender_password')
                 else:
-                    message = sending_email(user.validation, user.email, 'sender_email', 'sender_password')
+                    message = sending_email(user.validation, user.email, 'marzie.7900@gmail.com', '61043376Marzie')
                 # TODO: make it comment just for having test
-                # if message is not None:
-                #     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                #                     data={'message': 'server has error try again'})
+                if message is not None:
+                    return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                                    data={'message': 'server has error try again'})
 
                 return Response(status=status.HTTP_200_OK, data={'message': 'sending email to user is successful',
                                                                  'email': request.data['email']})
