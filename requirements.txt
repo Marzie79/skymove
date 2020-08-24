@@ -6,6 +6,7 @@ validate_email
 django-phone-field
 django-countries
 drf-yasg
+django-environ
 
 
 

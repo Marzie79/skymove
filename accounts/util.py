@@ -36,6 +36,6 @@ def sending_email(validation, receiver, sender, sender_password):
             server.login(sender, sender_password)
             server.sendmail(
                 sender, receiver, message.as_string()
-            )
+                )
     except:
         return {'message': 'try again.'}

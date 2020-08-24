@@ -2,7 +2,7 @@
 set of utilities to use in apps
 """
 from django.conf import settings
-from kavenegar import KavenegarAPI, APIException, HTTPException
+from kavenegar import APIException, HTTPException, KavenegarAPI
 
 maketrans = lambda A, B: dict((ord(a), b) for a, b in zip(A, B))
 
@@ -42,7 +42,8 @@ def send_sms_template(receptor, template, token, token2=None, token3=None):
         api = KavenegarAPI(settings.KAVENEGAR_AUTH_TOKEN)
         params = {
             'receptor': str(receptor),
-            'template': template}
+            'template': template
+            }
         if token:
             params.update({'token': sms_character_replace(token)})
         if token2:

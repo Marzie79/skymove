@@ -1,7 +1,8 @@
 from django.test import TestCase
-from accounts.serializers import *
-from accounts.models import User
 from django.urls import reverse
+
+from accounts.models import User
+from accounts.serializers import *
 
 
 class AuthorModelTest(TestCase):
@@ -16,7 +17,7 @@ class AuthorModelTest(TestCase):
             "last_name": "Zand",
             "phone_number": "09379870098",
             "company_name": "Asiya"
-        }
+            }
 
         self.user = User.objects.create(email='mz00@gmail.com', password='12345678M', nationality='002301',
                                         first_name='مرضیه', last_name='معصوم زاده', phone_number='0937797',
@@ -98,7 +99,7 @@ class AuthorModelTest(TestCase):
             "last_name": "Zand",
             "phone_number": "09379870098",
             "company_name": "Asiya"
-        }
+            }
         response = self.client.post(reverse('sign_up'), data=repeat)
         self.assertEquals(response.status_code, 400)
 
@@ -106,7 +107,7 @@ class AuthorModelTest(TestCase):
         person = {
             "email": "mz00@gmail.com",
             "password": "12345678M"
-        }
+            }
         response = self.client.post(reverse('log_in'), data=person)
         self.assertEquals(response.status_code, 200)
 
@@ -114,14 +115,14 @@ class AuthorModelTest(TestCase):
         person = {
             "email": "mz00@gmail.com",
             "password": "12345678"
-        }
+            }
         response = self.client.post(reverse('log_in'), data=person)
         self.assertEquals(response.status_code, 406)
 
     def test_sign_in_bad_request(self):
         person = {
             "password": "12345678M"
-        }
+            }
         response = self.client.post(reverse('log_in'), data=person)
         self.assertEquals(response.status_code, 400)
 
@@ -129,7 +130,7 @@ class AuthorModelTest(TestCase):
         person = {
             "email": "alireza7900@gmail.com",
             "password": "12345678M"
-        }
+            }
         response = self.client.post(reverse('log_in'), data=person)
         self.assertEquals(response.status_code, 404)
 
@@ -137,28 +138,28 @@ class AuthorModelTest(TestCase):
         person = {
             "email": "maz00@gmail.com",
             "password": "12345678M"
-        }
+            }
         response = self.client.post(reverse('log_in'), data=person)
         self.assertEquals(response.status_code, 401)
 
     def test_validate_email_for_first_time(self):
         person = {
             "email": "maz00@gmail.com"
-        }
+            }
         response = self.client.post(reverse('validate_email'), data=person)
         self.assertEquals(response.status_code, 200)
 
     def test_validate_email_when_user_is_valid(self):
         person = {
             "email": "mz00@gmail.com"
-        }
+            }
         response = self.client.post(reverse('validate_email'), data=person)
         self.assertEquals(response.status_code, 409)
 
     def test_validate_email_with_none_exist_email(self):
         person = {
             "email": "m00@gmail.com"
-        }
+            }
         response = self.client.post(reverse('validate_email'), data=person)
         self.assertEquals(response.status_code, 404)
 
@@ -166,7 +167,7 @@ class AuthorModelTest(TestCase):
         person = {
             "email": "mz00@gmail.com",
             "validation": "abcdef"
-        }
+            }
         response = self.client.post(path='/accounts/validate_email/?valid=nckvn', data=person)
         self.assertEquals(response.status_code, 409)
 
@@ -174,7 +175,7 @@ class AuthorModelTest(TestCase):
         person = {
             "email": "m00@gmail.com",
             "validation": "abcdef"
-        }
+            }
         response = self.client.post(path='/accounts/validate_email/?valid=nckvn', data=person)
         self.assertEquals(response.status_code, 404)
 
@@ -184,7 +185,7 @@ class AuthorModelTest(TestCase):
         person = {
             "email": "maz00@gmail.com",
             "validation": self.user1.validation
-        }
+            }
         response = self.client.post(path='/accounts/validate_email/?valid=asc', data=person)
         self.assertEquals(response.status_code, 200)
 
@@ -194,11 +195,10 @@ class AuthorModelTest(TestCase):
         person = {
             "email": "maz00@gmail.com",
             "validation": "dfm.e"
-        }
+            }
         response = self.client.post(path='/accounts/validate_email/?valid=asc', data=person)
         self.assertEquals(response.status_code, 406)
 
     def test_custom_validation_error_empty_field(self):
         response = CustomValidation(detail=None, field='email', status_code=status.HTTP_200_OK)
         self.assertEquals(response.status_code, 200)
-

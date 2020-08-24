@@ -1,10 +1,11 @@
+from django.contrib.auth.models import AbstractBaseUser
 from django.core.validators import validate_email
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
-from accounts.manager import UserManager
-from phone_field import PhoneField
-from utils.custom_fields import FarsiCharField
 from django_countries.fields import CountryField
+from phone_field import PhoneField
+
+from accounts.manager import UserManager
+from utils.custom_fields import FarsiCharField
 
 
 class User(AbstractBaseUser):
@@ -12,7 +13,8 @@ class User(AbstractBaseUser):
     first_name = FarsiCharField(max_length=30)
     last_name = FarsiCharField(max_length=30)
     email = models.EmailField(validators=[validate_email], max_length=255, unique=True)
-    email_2 = models.EmailField(validators=[validate_email], max_length=255, unique=True, blank=True, null=True)
+    email_2 = models.EmailField(validators=[validate_email], max_length=255, unique=True, blank=True,
+                                null=True)
     phone_number = PhoneField()
     company_name = FarsiCharField(max_length=40, null=True, blank=True)
     validation = models.CharField(max_length=6, null=True, blank=True)

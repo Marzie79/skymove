@@ -1,6 +1,6 @@
 from django.urls import path
+
 from accounts.views import *
-from rest_framework import permissions
 
 urlpatterns = [
     # path('swagger.json/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
@@ -11,4 +11,4 @@ urlpatterns = [
     path('edit_profile/', Edit_Profile.as_view({'post': 'update'}), name='edit'),
     path('contact_us/', Contact_Us.as_view(), name='contact_us'),
 
-]
+    ]

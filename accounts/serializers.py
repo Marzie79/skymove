@@ -1,10 +1,10 @@
-from accounts.models import *
-from validate_email import validate_email
-from rest_framework import serializers
-from rest_framework import status
-from rest_framework.serializers import raise_errors_on_nested_writes
 from django.utils.encoding import force_text
+from rest_framework import serializers, status
 from rest_framework.exceptions import APIException
+from rest_framework.serializers import raise_errors_on_nested_writes
+from validate_email import validate_email
+
+from accounts.models import *
 
 
 class LogInSerializer(serializers.Serializer):

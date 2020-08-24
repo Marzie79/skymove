@@ -1,15 +1,16 @@
-from accounts.serializers import *
-from accounts.serializers import ProfileSerializer
-from accounts.models import *
-from accounts.util import sending_email
-from rest_framework import generics, permissions, viewsets
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from django.utils.crypto import get_random_string
+from rest_framework import generics, permissions, viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.models import Token
+from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from accounts.models import *
+from accounts.serializers import *
+from accounts.serializers import ProfileSerializer
+from accounts.util import sending_email
 
 
 class Sign_up(generics.CreateAPIView):
@@ -38,11 +39,14 @@ class Log_in(generics.GenericAPIView):
                     return Response(status=status.HTTP_200_OK, data={'token': token.key})
                 else:
                     # if password for that existing email isn't correct response 406
-                    return Response(status=status.HTTP_406_NOT_ACCEPTABLE, data={'message': 'password is not correct'})
+                    return Response(status=status.HTTP_406_NOT_ACCEPTABLE,
+                                    data={'message': 'password is not correct'})
             else:
                 # if user doesn't validate email
                 return Response(status=status.HTTP_401_UNAUTHORIZED,
-                                data={'email': request.data['email'], 'message': 'user should validate email'})
+                                data={
+                                    'email': request.data['email'], 'message': 'user should validate email'
+                                    })
         else:
             # email doesn't exist in request
             return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': 'request is not correct'})
@@ -67,7 +71,8 @@ class Validate_Email(APIView):
                     user.is_validate = True
                     user.save()
                 else:
-                    return Response(status=status.HTTP_406_NOT_ACCEPTABLE, data={'message': 'code is not correct'})
+                    return Response(status=status.HTTP_406_NOT_ACCEPTABLE,
+                                    data={'message': 'code is not correct'})
 
                 return Response(status=status.HTTP_200_OK, data={'message': 'email is validate'})
 
@@ -91,14 +96,17 @@ class Validate_Email(APIView):
                 if request.user.is_authenticated:
                     message = sending_email(user.validation, user.email_2, 'sender_email', 'sender_password')
                 else:
-                    message = sending_email(user.validation, user.email, 'marzie.7900@gmail.com', '61043376Marzie')
+                    message = sending_email(user.validation, user.email, 'marzie.7900@gmail.com',
+                                            '61043376Marzie')
                 # TODO: make it comment just for having test
                 if message is not None:
                     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                                     data={'message': 'server has error try again'})
 
-                return Response(status=status.HTTP_200_OK, data={'message': 'sending email to user is successful',
-                                                                 'email': request.data['email']})
+                return Response(status=status.HTTP_200_OK, data={
+                    'message': 'sending email to user is successful',
+                    'email': request.data['email']
+                    })
             except User.DoesNotExist:
                 # if the email isn't valid in database response 404
                 return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
