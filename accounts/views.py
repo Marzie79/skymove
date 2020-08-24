@@ -106,12 +106,14 @@ class Validate_Email(APIView):
 
 class Edit_Profile(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
     authentication_classes = (TokenAuthentication,)
 
     def update(self, request, *args, **kwargs):
         instance = request.user
-        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        print(instance)
+        print(request.data)
+        serializer = self.get_serializer(instance, data=request.data, partial=False)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 
