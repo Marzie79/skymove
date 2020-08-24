@@ -1,13 +1,11 @@
-install these packages for running server:
-
-1.pip install django
-2.pip install djangorestframework
-3.pip install kavenegar
-4.pip install django-cors-headers
-5.pip install validate_email
-6.pip install django-phone-field
-7.pip install django-countries
-8.pip install -U drf-yasg
+django
+djangorestframework
+kavenegar
+django-cors-headers
+validate_email
+django-phone-field
+django-countries
+drf-yasg
 
 
 
