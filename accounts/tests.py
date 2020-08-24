@@ -1,11 +1,10 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from accounts.models import User
 from accounts.serializers import *
 
 
-class AuthorModelTest(TestCase):
+class UserModelTest(TestCase):
 
     @classmethod
     def setUp(self):
