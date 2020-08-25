@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0Report-Msgid-Bugs-To: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-24 17:40+0430\n"
+"POT-Creation-Date: 2020-08-25 10:24+0430\n"
 "PO-Revision-Date: 2019-11-05 00:38+0000\n"
 "Last-Translator: Z\n"
 "Language-Team: Persian digit-team.comLanguage: Fa\n"
@@ -12,3 +12,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: accounts/apps.py:7
+msgid "accounts"
+msgstr ""
+
+#: accounts/models.py:13
+msgid "Nationality"
+msgstr "ملیت"
+
+#: accounts/models.py:14
+msgid "First name"
+msgstr "نام"
+
+#: accounts/models.py:15
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+#: accounts/models.py:16
+msgid "Email"
+msgstr "ایمیل"
+
+#: accounts/models.py:18
+msgid "Email 2"
+msgstr "ایمیل ۲"
+
+#: accounts/models.py:21
+msgid "Phone number"
+msgstr "شماره تلفن"
+
+#: accounts/models.py:22
+msgid "Company name"
+msgstr "نام شرکت"
+
+#: accounts/models.py:23
+msgid "Validation"
+msgstr "اعتبارسنجی"
+
+#: accounts/models.py:24
+msgid "Is validate"
+msgstr "معتبر"
+
+#: accounts/models.py:25
+msgid "Is active"
+msgstr "فعال"
+
+#: accounts/models.py:26
+msgid "Is admin"
+msgstr "ادمین"
+
+#: accounts/models.py:30
+msgid "User"
+msgstr "کاربر"
+
+#: accounts/models.py:31
+msgid "Users"
+msgstr "کاربران"

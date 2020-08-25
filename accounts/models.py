@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.core.validators import validate_email
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
 from phone_field import PhoneField
 
@@ -9,21 +10,25 @@ from utils.custom_fields import FarsiCharField
 
 
 class User(AbstractBaseUser):
-    nationality = CountryField(max_length=2, blank_label='(select country)')
-    first_name = FarsiCharField(max_length=30)
-    last_name = FarsiCharField(max_length=30)
-    email = models.EmailField(validators=[validate_email], max_length=255, unique=True)
-    email_2 = models.EmailField(validators=[validate_email], max_length=255, unique=True, blank=True,
+    nationality = CountryField(verbose_name=_("Nationality"), max_length=2, blank_label='(select country)')
+    first_name = FarsiCharField(verbose_name=_("First name"), max_length=30)
+    last_name = FarsiCharField(verbose_name=_("Last name"), max_length=30)
+    email = models.EmailField(verbose_name=_("Email"), validators=[validate_email], max_length=255,
+                              unique=True)
+    email_2 = models.EmailField(verbose_name=_("Email 2"), validators=[validate_email], max_length=255,
+                                unique=True, blank=True,
                                 null=True)
-    phone_number = PhoneField()
-    company_name = FarsiCharField(max_length=40, null=True, blank=True)
-    validation = models.CharField(max_length=6, null=True, blank=True)
-    is_validate = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
+    phone_number = PhoneField(verbose_name=_("Phone number"), )
+    company_name = FarsiCharField(verbose_name=_("Company name"), max_length=40, null=True, blank=True)
+    validation = models.CharField(verbose_name=_("Validation"), max_length=6, null=True, blank=True)
+    is_validate = models.BooleanField(verbose_name=_("Is validate"), default=False)
+    is_active = models.BooleanField(verbose_name=_("Is active"), default=True)
+    is_admin = models.BooleanField(verbose_name=_("Is admin"), default=False)
 
     class Meta:
         ordering = ['nationality']
+        verbose_name = _("User"),
+        verbose_name_plural = _("Users")
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
