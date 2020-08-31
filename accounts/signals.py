@@ -17,7 +17,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
     email_plaintext_message = reset_password_token.key
-    sending_email(email_plaintext_message, 'skymovextest@gmail.com', 'skymovextest@gmail.com', '12345678MA')
+    sending_email(email_plaintext_message, 'skymovextest@gmail.com', 'skymovextest@gmail.com', '')
 
     # email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'),
     #                                                reset_password_token.key)

@@ -94,12 +94,12 @@ class Validate_Email(APIView):
                 user.save()
                 if request.user.is_authenticated:
                     # message = sending_email(user.validation, user.email_2, 'sender_email', 'sender_password')
-                    message = sending_email(user.validation, 'skymovextest@gmail.com', 'skymovextest@gmail.com', '12345678MA')
+                    message = sending_email(user.validation, 'skymovextest@gmail.com', 'skymovextest@gmail.com', '')
                 else:
                     # message = sending_email(user.validation, user.email, 'skymovextest@gmail.com',
-                    #                         '12345678MA')
+                    #                         '')
                     message = sending_email(user.validation, 'skymovextest@gmail.com', 'skymovextest@gmail.com',
-                                            '12345678MA')
+                                            '')
                 # TODO: make it comment just for having test
                 if message is not None:
                     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR,
