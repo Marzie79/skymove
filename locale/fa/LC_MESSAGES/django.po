@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0Report-Msgid-Bugs-To: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-25 10:24+0430\n"
+"POT-Creation-Date: 2020-08-25 19:27+0430\n"
 "PO-Revision-Date: 2019-11-05 00:38+0000\n"
 "Last-Translator: Z\n"
 "Language-Team: Persian digit-team.comLanguage: Fa\n"
@@ -14,7 +14,11 @@ msgstr ""
 
 #: accounts/apps.py:7
 msgid "accounts"
-msgstr ""
+msgstr "اکانت کاربران"
+
+#: accounts/forms.py:34
+msgid "Password"
+msgstr "رمز عبور"
 
 #: accounts/models.py:13
 msgid "Nationality"
@@ -28,7 +32,7 @@ msgstr "نام"
 msgid "Last name"
 msgstr "نام خانوادگی"
 
-#: accounts/models.py:16
+#: accounts/models.py:16 accounts/models.py:62
 msgid "Email"
 msgstr "ایمیل"
 
@@ -36,7 +40,7 @@ msgstr "ایمیل"
 msgid "Email 2"
 msgstr "ایمیل ۲"
 
-#: accounts/models.py:21
+#: accounts/models.py:21 accounts/models.py:63
 msgid "Phone number"
 msgstr "شماره تلفن"
 
@@ -67,3 +71,51 @@ msgstr "کاربر"
 #: accounts/models.py:31
 msgid "Users"
 msgstr "کاربران"
+
+#: accounts/models.py:61
+msgid "Name"
+msgstr "نام"
+
+#: accounts/models.py:64
+msgid "Message"
+msgstr "پیام"
+
+#: accounts/models.py:67
+msgid "Contact"
+msgstr "پیام"
+
+#: accounts/models.py:68
+msgid "Contacts"
+msgstr "پیام ها"
+
+#: institute/apps.py:7
+msgid "institute"
+msgstr "مؤسسه"
+
+#: institute/models.py:9
+msgid "Title"
+msgstr "عنوان"
+
+#: institute/models.py:10
+msgid "Description"
+msgstr "توضیحات"
+
+#: institute/models.py:11
+msgid "Image"
+msgstr "عکس"
+
+#: institute/models.py:12
+msgid "Date"
+msgstr "تاریخ"
+
+#: institute/models.py:13
+msgid "Counter"
+msgstr "بازدید"
+
+#: institute/models.py:16
+msgid "News"
+msgstr "خبر"
+
+#: institute/models.py:17
+msgid "AllNews"
+msgstr "اخبار"

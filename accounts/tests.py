@@ -1,6 +1,4 @@
 from django.test import TestCase
-from django.urls import reverse
-
 from accounts.serializers import *
 
 
@@ -14,18 +12,18 @@ class UserModelTest(TestCase):
             "nationality": "IR",
             "first_name": "Farhad",
             "last_name": "Zand",
-            "phone_number": "09379870098",
+            "phone_number": "+989369447797",
             "company_name": "Asiya"
-            }
+        }
 
-        self.user = User.objects.create(email='mz00@gmail.com', password='12345678M', nationality='002301',
-                                        first_name='مرضیه', last_name='معصوم زاده', phone_number='0937797',
+        self.user = User.objects.create(email='mz00@gmail.com', password='12345678M', nationality='IR',
+                                        first_name='مرضیه', last_name='معصوم زاده', phone_number='+989369447797',
                                         company_name='saran', is_validate=True, validation='abcdef')
         self.user.set_password(self.user.password)
         self.user.save()
 
-        self.user1 = User.objects.create(email='maz00@gmail.com', password='12345678M', nationality='002301',
-                                         first_name='سایه', last_name='نصیری', phone_number='0937797',
+        self.user1 = User.objects.create(email='maz00@gmail.com', password='12345678M', nationality='IR',
+                                         first_name='سایه', last_name='نصیری', phone_number='+989369447797',
                                          company_name='saran', is_validate=False)
         self.user1.set_password(self.user.password)
         self.user1.save()
@@ -96,9 +94,9 @@ class UserModelTest(TestCase):
             "nationality": "IR",
             "first_name": "Farhad",
             "last_name": "Zand",
-            "phone_number": "09379870098",
+            "phone_number": "+989369447797",
             "company_name": "Asiya"
-            }
+        }
         response = self.client.post(reverse('sign_up'), data=repeat)
         self.assertEquals(response.status_code, 400)
 
@@ -106,7 +104,7 @@ class UserModelTest(TestCase):
         person = {
             "email": "mz00@gmail.com",
             "password": "12345678M"
-            }
+        }
         response = self.client.post(reverse('log_in'), data=person)
         self.assertEquals(response.status_code, 200)
 
@@ -114,14 +112,14 @@ class UserModelTest(TestCase):
         person = {
             "email": "mz00@gmail.com",
             "password": "12345678"
-            }
+        }
         response = self.client.post(reverse('log_in'), data=person)
         self.assertEquals(response.status_code, 406)
 
     def test_sign_in_bad_request(self):
         person = {
             "password": "12345678M"
-            }
+        }
         response = self.client.post(reverse('log_in'), data=person)
         self.assertEquals(response.status_code, 400)
 
@@ -129,7 +127,7 @@ class UserModelTest(TestCase):
         person = {
             "email": "alireza7900@gmail.com",
             "password": "12345678M"
-            }
+        }
         response = self.client.post(reverse('log_in'), data=person)
         self.assertEquals(response.status_code, 404)
 
@@ -137,28 +135,28 @@ class UserModelTest(TestCase):
         person = {
             "email": "maz00@gmail.com",
             "password": "12345678M"
-            }
+        }
         response = self.client.post(reverse('log_in'), data=person)
         self.assertEquals(response.status_code, 401)
 
     def test_validate_email_for_first_time(self):
         person = {
             "email": "maz00@gmail.com"
-            }
+        }
         response = self.client.post(reverse('validate_email'), data=person)
-        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.status_code, 500)
 
     def test_validate_email_when_user_is_valid(self):
         person = {
             "email": "mz00@gmail.com"
-            }
+        }
         response = self.client.post(reverse('validate_email'), data=person)
         self.assertEquals(response.status_code, 409)
 
     def test_validate_email_with_none_exist_email(self):
         person = {
             "email": "m00@gmail.com"
-            }
+        }
         response = self.client.post(reverse('validate_email'), data=person)
         self.assertEquals(response.status_code, 404)
 
@@ -166,7 +164,7 @@ class UserModelTest(TestCase):
         person = {
             "email": "mz00@gmail.com",
             "validation": "abcdef"
-            }
+        }
         response = self.client.post(path='/accounts/validate_email/?valid=nckvn', data=person)
         self.assertEquals(response.status_code, 409)
 
@@ -174,7 +172,7 @@ class UserModelTest(TestCase):
         person = {
             "email": "m00@gmail.com",
             "validation": "abcdef"
-            }
+        }
         response = self.client.post(path='/accounts/validate_email/?valid=nckvn', data=person)
         self.assertEquals(response.status_code, 404)
 
@@ -184,7 +182,7 @@ class UserModelTest(TestCase):
         person = {
             "email": "maz00@gmail.com",
             "validation": self.user1.validation
-            }
+        }
         response = self.client.post(path='/accounts/validate_email/?valid=asc', data=person)
         self.assertEquals(response.status_code, 200)
 
@@ -194,7 +192,7 @@ class UserModelTest(TestCase):
         person = {
             "email": "maz00@gmail.com",
             "validation": "dfm.e"
-            }
+        }
         response = self.client.post(path='/accounts/validate_email/?valid=asc', data=person)
         self.assertEquals(response.status_code, 406)
 

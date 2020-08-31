@@ -7,7 +7,6 @@ from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from accounts.models import *
 from accounts.serializers import *
 from accounts.serializers import ProfileSerializer
 from accounts.util import sending_email
@@ -46,7 +45,7 @@ class Log_in(generics.GenericAPIView):
                 return Response(status=status.HTTP_401_UNAUTHORIZED,
                                 data={
                                     'email': request.data['email'], 'message': 'user should validate email'
-                                    })
+                                })
         else:
             # email doesn't exist in request
             return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': 'request is not correct'})
@@ -94,10 +93,13 @@ class Validate_Email(APIView):
                 user.validation = get_random_string(length=6)
                 user.save()
                 if request.user.is_authenticated:
-                    message = sending_email(user.validation, user.email_2, 'sender_email', 'sender_password')
+                    # message = sending_email(user.validation, user.email_2, 'sender_email', 'sender_password')
+                    message = sending_email(user.validation, 'skymovextest@gmail.com', 'skymovextest@gmail.com', '12345678MA')
                 else:
-                    message = sending_email(user.validation, user.email, 'marzie.7900@gmail.com',
-                                            '61043376Marzie')
+                    # message = sending_email(user.validation, user.email, 'skymovextest@gmail.com',
+                    #                         '12345678MA')
+                    message = sending_email(user.validation, 'skymovextest@gmail.com', 'skymovextest@gmail.com',
+                                            '12345678MA')
                 # TODO: make it comment just for having test
                 if message is not None:
                     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -106,7 +108,7 @@ class Validate_Email(APIView):
                 return Response(status=status.HTTP_200_OK, data={
                     'message': 'sending email to user is successful',
                     'email': request.data['email']
-                    })
+                })
             except User.DoesNotExist:
                 # if the email isn't valid in database response 404
                 return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
@@ -129,14 +131,3 @@ class Edit_Profile(viewsets.ModelViewSet):
             instance._prefetched_objects_cache = {}
 
         return Response(serializer.data)
-
-
-class Contact_Us(generics.CreateAPIView):
-    serializer_class = ContactSerializer
-    permission_classes = (permissions.AllowAny,)
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        return Response(status=status.HTTP_201_CREATED, data={'message': 'the message is saved'})

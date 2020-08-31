@@ -3,11 +3,14 @@ djangorestframework
 kavenegar
 django-cors-headers
 validate_email
-django-phone-field
+django-phonenumber-field[phonenumberslite]
 django-countries
 drf-yasg
 django-environ
-
+Pillow
+django_rest_passwordreset
+coverage
+django-tinymce
 
 
 

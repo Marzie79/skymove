@@ -22,26 +22,20 @@ class UserAdmin(BaseUserAdmin):
                 'validation', 'first_name', 'last_name', 'nationality', 'phone_number', 'email', 'email_2',
                 'company_name',
                 'password')
-            }),
+        }),
         ('Permission', {'fields': ('is_admin', 'is_active', 'is_validate')}),
-        )
+    )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
             'fields': ('email', 'password1', 'password2'),
-            }),
-        )
+        }),
+    )
     search_fields = ('nationality',)
     ordering = ('nationality',)
     filter_horizontal = ()
 
 
 admin.site.register(User, UserAdmin)
-
-
-@admin.register(Contact)
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'email', 'phone_number', 'message')
-    search_fields = ('name',)

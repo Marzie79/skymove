@@ -27,10 +27,10 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # check that email is valid in internet
-        is_valid = validate_email(validated_data['email'])
-        if not is_valid:
-            # if email is not valid in internet return 406 status code
-            raise CustomValidation('email is not exist', 'email', status_code=status.HTTP_406_NOT_ACCEPTABLE)
+        # is_valid = validate_email(validated_data['email'])
+        # if not is_valid:
+        #     # if email is not valid in internet return 406 status code
+        #     raise CustomValidation('email is not exist', 'email', status_code=status.HTTP_406_NOT_ACCEPTABLE)
         return User.objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
@@ -44,12 +44,6 @@ class ProfileSerializer(serializers.ModelSerializer):
                 setattr(instance, attr, value)
         instance.save()
         return instance
-
-
-class ContactSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Contact
-        fields = '__all__'
 
 
 class CustomValidation(APIException):

@@ -1,15 +1,14 @@
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.validators import validate_email
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
-from phone_field import PhoneField
-
+from phonenumber_field.modelfields import PhoneNumberField
 from accounts.manager import UserManager
 from utils.custom_fields import FarsiCharField
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     nationality = CountryField(verbose_name=_("Nationality"), max_length=2, blank_label='(select country)')
     first_name = FarsiCharField(verbose_name=_("First name"), max_length=30)
     last_name = FarsiCharField(verbose_name=_("Last name"), max_length=30)
@@ -18,7 +17,7 @@ class User(AbstractBaseUser):
     email_2 = models.EmailField(verbose_name=_("Email 2"), validators=[validate_email], max_length=255,
                                 unique=True, blank=True,
                                 null=True)
-    phone_number = PhoneField(verbose_name=_("Phone number"), )
+    phone_number = PhoneNumberField(verbose_name=_("Phone number"), )
     company_name = FarsiCharField(verbose_name=_("Company name"), max_length=40, null=True, blank=True)
     validation = models.CharField(verbose_name=_("Validation"), max_length=6, null=True, blank=True)
     is_validate = models.BooleanField(verbose_name=_("Is validate"), default=False)
@@ -27,7 +26,7 @@ class User(AbstractBaseUser):
 
     class Meta:
         ordering = ['nationality']
-        verbose_name = _("User"),
+        verbose_name = _("User")
         verbose_name_plural = _("Users")
 
     def __str__(self):
@@ -55,10 +54,3 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
-
-
-class Contact(models.Model):
-    name = FarsiCharField(max_length=60)
-    email = models.EmailField(validators=[validate_email], max_length=255)
-    phone_number = PhoneField()
-    message = models.TextField()
