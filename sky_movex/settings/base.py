@@ -23,8 +23,6 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -148,3 +146,4 @@ TINYMCE_DEFAULT_CONFIG = {
                     "Tahoma;" +
                     "Times New Roman;",
 }
+

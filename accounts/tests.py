@@ -1,9 +1,9 @@
 from django.test import TestCase
+from rest_framework.reverse import reverse
 from accounts.serializers import *
 
 
 class UserModelTest(TestCase):
-
     @classmethod
     def setUp(self):
         self.j_son = {
@@ -141,10 +141,10 @@ class UserModelTest(TestCase):
 
     def test_validate_email_for_first_time(self):
         person = {
-            "email": "maz00@gmail.com"
+            "email": "marzie.7900@gmail.com"
         }
         response = self.client.post(reverse('validate_email'), data=person)
-        self.assertEquals(response.status_code, 500)
+        self.assertEquals(response.status_code, 200)
 
     def test_validate_email_when_user_is_valid(self):
         person = {
@@ -165,7 +165,7 @@ class UserModelTest(TestCase):
             "email": "mz00@gmail.com",
             "validation": "abcdef"
         }
-        response = self.client.post(path='/accounts/validate_email/?valid=nckvn', data=person)
+        response = self.client.post(path=reverse('validate_email_code'), data=person)
         self.assertEquals(response.status_code, 409)
 
     def test_validate_email_when_email_does_not_exist(self):
@@ -173,7 +173,7 @@ class UserModelTest(TestCase):
             "email": "m00@gmail.com",
             "validation": "abcdef"
         }
-        response = self.client.post(path='/accounts/validate_email/?valid=nckvn', data=person)
+        response = self.client.post(path=reverse('validate_email_code'), data=person)
         self.assertEquals(response.status_code, 404)
 
     def test_validate_email_set_correct_validate_code(self):
@@ -183,7 +183,7 @@ class UserModelTest(TestCase):
             "email": "maz00@gmail.com",
             "validation": self.user1.validation
         }
-        response = self.client.post(path='/accounts/validate_email/?valid=asc', data=person)
+        response = self.client.post(path=reverse('validate_email_code'), data=person)
         self.assertEquals(response.status_code, 200)
 
     def test_validate_email_set_wrong_validate_code(self):
@@ -193,9 +193,11 @@ class UserModelTest(TestCase):
             "email": "maz00@gmail.com",
             "validation": "dfm.e"
         }
-        response = self.client.post(path='/accounts/validate_email/?valid=asc', data=person)
+        response = self.client.post(path=reverse('validate_email_code'), data=person)
         self.assertEquals(response.status_code, 406)
 
     def test_custom_validation_error_empty_field(self):
         response = CustomValidation(detail=None, field='email', status_code=status.HTTP_200_OK)
         self.assertEquals(response.status_code, 200)
+
+    # def test_password_reset(self):

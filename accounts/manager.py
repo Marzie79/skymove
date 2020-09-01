@@ -5,7 +5,7 @@ class UserManager(BaseUserManager):
 
     def create_user(self, email, password, **extra_fields):
         user = self.model(email=email, **extra_fields)
-        # set an algorithm to not show password directely
+        # set an algorithm to not show password directly
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -17,7 +17,7 @@ class UserManager(BaseUserManager):
             password=password,
             **extra_fields,
             )
-        user.validation = True
+        user.is_validate = True
         user.is_admin = True
         user.save(using=self._db)
         return user

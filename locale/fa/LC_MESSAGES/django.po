@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0Report-Msgid-Bugs-To: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-25 19:27+0430\n"
+"POT-Creation-Date: 2020-09-01 19:50+0430\n"
 "PO-Revision-Date: 2019-11-05 00:38+0000\n"
 "Last-Translator: Z\n"
 "Language-Team: Persian digit-team.comLanguage: Fa\n"
@@ -17,105 +17,144 @@ msgid "accounts"
 msgstr "اکانت کاربران"
 
 #: accounts/forms.py:34
+#: venv/lib/python3.6/site-packages/django_rest_passwordreset/serializers.py:17
 msgid "Password"
 msgstr "رمز عبور"
 
-#: accounts/models.py:13
+#: accounts/models.py:12
 msgid "Nationality"
 msgstr "ملیت"
 
-#: accounts/models.py:14
+#: accounts/models.py:13
 msgid "First name"
 msgstr "نام"
 
-#: accounts/models.py:15
+#: accounts/models.py:14
 msgid "Last name"
 msgstr "نام خانوادگی"
 
-#: accounts/models.py:16 accounts/models.py:62
+#: accounts/models.py:15 institute/models.py:11
 msgid "Email"
 msgstr "ایمیل"
 
-#: accounts/models.py:18
+#: accounts/models.py:17
 msgid "Email 2"
 msgstr "ایمیل ۲"
 
-#: accounts/models.py:21 accounts/models.py:63
+#: accounts/models.py:20 institute/models.py:12
 msgid "Phone number"
 msgstr "شماره تلفن"
 
-#: accounts/models.py:22
+#: accounts/models.py:21
 msgid "Company name"
 msgstr "نام شرکت"
 
-#: accounts/models.py:23
+#: accounts/models.py:22
 msgid "Validation"
 msgstr "اعتبارسنجی"
 
-#: accounts/models.py:24
+#: accounts/models.py:23
 msgid "Is validate"
 msgstr "معتبر"
 
-#: accounts/models.py:25
+#: accounts/models.py:24
 msgid "Is active"
 msgstr "فعال"
 
-#: accounts/models.py:26
+#: accounts/models.py:25
 msgid "Is admin"
 msgstr "ادمین"
 
-#: accounts/models.py:30
+#: accounts/models.py:29
 msgid "User"
 msgstr "کاربر"
 
-#: accounts/models.py:31
+#: accounts/models.py:30
 msgid "Users"
 msgstr "کاربران"
-
-#: accounts/models.py:61
-msgid "Name"
-msgstr "نام"
-
-#: accounts/models.py:64
-msgid "Message"
-msgstr "پیام"
-
-#: accounts/models.py:67
-msgid "Contact"
-msgstr "پیام"
-
-#: accounts/models.py:68
-msgid "Contacts"
-msgstr "پیام ها"
 
 #: institute/apps.py:7
 msgid "institute"
 msgstr "مؤسسه"
 
-#: institute/models.py:9
+#: institute/models.py:10
+msgid "Name"
+msgstr "نام"
+
+#: institute/models.py:13
+msgid "Message"
+msgstr "پیام"
+
+#: institute/models.py:16
+msgid "Contact"
+msgstr "پیام"
+
+#: institute/models.py:17
+msgid "Contacts"
+msgstr "پیام ها"
+
+#: institute/models.py:21
 msgid "Title"
 msgstr "عنوان"
 
-#: institute/models.py:10
+#: institute/models.py:22
 msgid "Description"
 msgstr "توضیحات"
 
-#: institute/models.py:11
+#: institute/models.py:23
 msgid "Image"
 msgstr "عکس"
 
-#: institute/models.py:12
+#: institute/models.py:24
 msgid "Date"
 msgstr "تاریخ"
 
-#: institute/models.py:13
+#: institute/models.py:25
 msgid "Counter"
 msgstr "بازدید"
 
-#: institute/models.py:16
+#: institute/models.py:29
 msgid "News"
 msgstr "خبر"
 
-#: institute/models.py:17
+#: institute/models.py:30
 msgid "AllNews"
 msgstr "اخبار"
+
+#: venv/lib/python3.6/site-packages/django_rest_passwordreset/models.py:28
+msgid "Password Reset Token"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/django_rest_passwordreset/models.py:29
+msgid "Password Reset Tokens"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/django_rest_passwordreset/models.py:44
+msgid "The User which is associated to this password reset token"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/django_rest_passwordreset/models.py:49
+msgid "When was this token generated"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/django_rest_passwordreset/models.py:54
+msgid "Key"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/django_rest_passwordreset/models.py:61
+msgid "The IP address of this session"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/django_rest_passwordreset/models.py:68
+msgid "HTTP User Agent"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/django_rest_passwordreset/views.py:163
+msgid ""
+"There is no active user associated with this e-mail address or the password "
+"can not be changed"
+msgstr ""
+
+#: venv/lib/python3.6/site-packages/tinymce/views.py:57
+msgid "Error running spellchecker"
+msgstr ""

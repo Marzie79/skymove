@@ -12,9 +12,13 @@ class LogInSerializer(serializers.Serializer):
     password = serializers.CharField(max_length=128)
 
 
-class ValidationSerializer(serializers.Serializer):
+class ValidationCodeSerializer(serializers.Serializer):
     email = serializers.EmailField()
-    validate = serializers.CharField(max_length=6)
+    validation = serializers.CharField(max_length=6)
+
+
+class EmailAddressSerializer(serializers.Serializer):
+    email = serializers.EmailField()
 
 
 class ProfileSerializer(serializers.ModelSerializer):
