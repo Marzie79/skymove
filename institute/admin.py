@@ -12,3 +12,9 @@ class ContactAdmin(admin.ModelAdmin):
 class NewsAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'counter', 'date')
     search_fields = ('date',)
+
+
+@admin.register(Support)
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'email', 'phone_number', 'date')
+    search_fields = ('date',)

@@ -1,12 +1,24 @@
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, viewsets
+from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from institute.serializers import *
 from institute.models import *
 
 
-class Contact_Us(generics.CreateAPIView):
-    serializer_class = ContactSerializer
+class Contact_Us(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
+    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return SupportSerializer
+        else:
+            return ContactSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        last_obj = Support.objects.latest('date')
+        serialize = SupportSerializer(last_obj)
+        return Response(serialize.data)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

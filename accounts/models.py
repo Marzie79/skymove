@@ -10,15 +10,15 @@ from utils.custom_fields import FarsiCharField
 
 class User(AbstractBaseUser, PermissionsMixin):
     nationality = CountryField(verbose_name=_("Nationality"), max_length=2, blank_label='(select country)')
-    first_name = FarsiCharField(verbose_name=_("First name"), max_length=30)
+    first_name = FarsiCharField(verbose_name=_("First name"), max_length=30,
+                                error_messages={'max_length': "This email has already been registered."})
     last_name = FarsiCharField(verbose_name=_("Last name"), max_length=30)
-    email = models.EmailField(verbose_name=_("Email"), validators=[validate_email], max_length=255,
-                              unique=True)
+    email = models.EmailField(verbose_name=_("Email"), validators=[validate_email], max_length=255, unique=True)
     email_2 = models.EmailField(verbose_name=_("Email 2"), validators=[validate_email], max_length=255,
-                                unique=True, blank=True,
-                                null=True)
+                                unique=True, blank=True, null=True)
     phone_number = PhoneNumberField(verbose_name=_("Phone number"), )
-    company_name = FarsiCharField(verbose_name=_("Company name"), max_length=40, null=True, blank=True)
+    company_name = FarsiCharField(verbose_name=_("Company name"), max_length=40, null=True, blank=True,
+                                  error_messages={'max_length': "This email has already been registered."})
     validation = models.CharField(verbose_name=_("Validation"), max_length=6, null=True, blank=True)
     is_validate = models.BooleanField(verbose_name=_("Is validate"), default=False)
     is_active = models.BooleanField(verbose_name=_("Is active"), default=True)
