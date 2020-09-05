@@ -5,7 +5,7 @@ import environ
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
-)
+    )
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 # reading .env file
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'institute.apps.InstituteConfig',
     'django_rest_passwordreset',
     'tinymce',
-]
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+    ]
 
 WAGTAIL_SITE_NAME = 'My Example Site'
 
@@ -72,20 +72,20 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
+                ],
+            },
         },
-    },
-]
+    ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
-    ],
+        ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
 
-    ],
-}
+        ],
+    }
 
 WSGI_APPLICATION = 'sky_movex.wsgi.application'
 
@@ -96,24 +96,24 @@ AUTH_USER_MODEL = 'accounts.User'
 env.db()
 DATABASES = {
     'default': env.db()
-}
+    }
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
+        },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
+        },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
+        },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+        },
+    ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -132,11 +132,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'), ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
-)
+    )
 
 # add fonts and plugins to tiny mce
 TINYMCE_DEFAULT_CONFIG = {
@@ -145,5 +147,5 @@ TINYMCE_DEFAULT_CONFIG = {
                     "Arial;" +
                     "Tahoma;" +
                     "Times New Roman;",
-}
+    }
 
