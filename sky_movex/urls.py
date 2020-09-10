@@ -8,8 +8,9 @@ from django.conf.urls.static import static
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="accounts API",
+        title="API",
         default_version='v1',
+        # version='v2',
         description="Test description",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@snippets.local"),
@@ -21,8 +22,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-                  path('accounts/', include('accounts.urls')),
-                  path('institute/', include('institute.urls')),
+                  path('api/v1/accounts/', include(('accounts.urls', 'v2'), namespace='v2')),
+                  # path('api/v1/accounts/', include(('accounts.urls', 'v1'), namespace='v1')),
+                  path('api/v1/institute/', include(('institute.urls', 'v1'), namespace='v1')),
                   path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
                   path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

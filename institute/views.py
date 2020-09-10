@@ -11,9 +11,10 @@ class Contact_Us(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         if self.action == 'create':
-            return SupportSerializer
-        else:
             return ContactSerializer
+        else:
+            return SupportSerializer
+
 
     def retrieve(self, request, *args, **kwargs):
         last_obj = Support.objects.latest('date')
