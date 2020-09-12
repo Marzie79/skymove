@@ -27,7 +27,7 @@ class News(models.Model):
     class Meta:
         ordering = ['-date']
         verbose_name = _("News")
-        verbose_name_plural = _("AllNews")
+        verbose_name_plural = _("All News")
 
 
 class Support(models.Model):
@@ -38,7 +38,7 @@ class Support(models.Model):
     class Meta:
         ordering = ['-date']
         verbose_name = _("Support")
-        verbose_name_plural = _("AllSupport")
+        verbose_name_plural = _("Supports")
 
 
 class Service(models.Model):
@@ -50,3 +50,11 @@ class Service(models.Model):
     class Meta:
         verbose_name = _("Service")
         verbose_name_plural = _("Services")
+
+
+class NewsLetter(models.Model):
+    email = models.EmailField(verbose_name=_("Email"), validators=[validate_email], max_length=255, unique=True)
+
+    class Meta:
+        verbose_name = _("News Letter")
+        verbose_name_plural = _("All News Letter")

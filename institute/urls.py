@@ -6,4 +6,7 @@ urlpatterns = [
     path('news/<int:pk>/', One_News.as_view(), name='one_news'),
     path('services/', Services_List.as_view(), name='services'),
     path('service/<int:pk>/', One_Service.as_view(), name='one_service'),
+    path('most_viewd/', Most_Viewed.as_view(), name='most_viewd'),
+    path('home_news/', Home_News.as_view(), name='home_news'),
+    path('news_letter/', News_Letter.as_view(), name='news_letter'),
 ]

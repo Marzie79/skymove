@@ -72,3 +72,21 @@ class One_Service(generics.RetrieveAPIView):
         instance.save()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+
+
+class Most_Viewed(generics.ListAPIView):
+    serializer_class = NewsSerializer
+    permission_classes = (permissions.AllowAny,)
+    queryset = News.objects.all().order_by('-counter', '-date')[:4]
+
+
+class Home_News(generics.ListAPIView):
+    serializer_class = NewsSerializer
+    permission_classes = (permissions.AllowAny,)
+    queryset = News.objects.all().order_by('-date')[:4]
+
+
+class News_Letter(generics.CreateAPIView):
+    serializer_class = NewsLetterSerializer
+    permission_classes = (permissions.AllowAny,)
+    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]

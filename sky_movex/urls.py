@@ -27,7 +27,8 @@ v1 = [
 ]
 
 urlpatterns = [
-                  path('admin/', admin.site.urls, admin.site.unregister(ResetPasswordToken)),
+                  path('admin/', admin.site.urls, admin.site.unregister(ResetPasswordToken),
+                       admin.site.unregister(Token)),
                   path('api/v1/', include((v1, 'v1'), namespace='v1')),
                   # path('api/v2/', include((v2, 'v2'), namespace='2')),
                   path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

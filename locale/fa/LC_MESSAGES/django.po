@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0Report-Msgid-Bugs-To: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-12 16:58+0430\n"
+"POT-Creation-Date: 2020-09-12 22:58+0430\n"
 "PO-Revision-Date: 2019-11-05 00:38+0000\n"
 "Last-Translator: Z\n"
 "Language-Team: Persian digit-team.comLanguage: Fa\n"
@@ -34,6 +34,7 @@ msgid "Last name"
 msgstr "نام خانوادگی"
 
 #: accounts/models.py:16 institute/models.py:11 institute/models.py:34
+#: institute/models.py:56
 msgid "Email"
 msgstr "ایمیل"
 
@@ -118,7 +119,7 @@ msgid "News"
 msgstr "خبر"
 
 #: institute/models.py:30
-msgid "AllNews"
+msgid "All News"
 msgstr "اخبار"
 
 #: institute/models.py:40
@@ -126,7 +127,7 @@ msgid "Support"
 msgstr "پشتیبانی"
 
 #: institute/models.py:41
-msgid "AllSupport"
+msgid "Supports"
 msgstr "پشتیبانی ها"
 
 #: institute/models.py:51
@@ -136,6 +137,14 @@ msgstr "سرویس"
 #: institute/models.py:52
 msgid "Services"
 msgstr "سرویس ها"
+
+#: institute/models.py:59
+msgid "News Letter"
+msgstr "گزارشگیر"
+
+#: institute/models.py:60
+msgid "All News Letter"
+msgstr "گزارشگیران"
 
 #: venv/lib/python3.6/site-packages/django_rest_passwordreset/models.py:28
 msgid "Password Reset Token"

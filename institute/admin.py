@@ -26,3 +26,9 @@ class SupportAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     fields = ('title', 'description', 'image')
     list_display = ('id', 'title')
+
+
+@admin.register(NewsLetter)
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'email')
+    search_fields = ('email',)
