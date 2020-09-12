@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0Report-Msgid-Bugs-To: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-05 20:38+0430\n"
+"POT-Creation-Date: 2020-09-12 16:58+0430\n"
 "PO-Revision-Date: 2019-11-05 00:38+0000\n"
 "Last-Translator: Z\n"
 "Language-Team: Persian digit-team.comLanguage: Fa\n"
@@ -37,15 +37,15 @@ msgstr "نام خانوادگی"
 msgid "Email"
 msgstr "ایمیل"
 
-#: accounts/models.py:18
+#: accounts/models.py:17
 msgid "Email 2"
 msgstr "ایمیل ۲"
 
-#: accounts/models.py:20 institute/models.py:12 institute/models.py:35
+#: accounts/models.py:19 institute/models.py:12 institute/models.py:35
 msgid "Phone number"
 msgstr "شماره تلفن"
 
-#: accounts/models.py:21
+#: accounts/models.py:20
 msgid "Company name"
 msgstr "نام شرکت"
 
@@ -93,15 +93,15 @@ msgstr "پیام"
 msgid "Contacts"
 msgstr "پیام ها"
 
-#: institute/models.py:21
+#: institute/models.py:21 institute/models.py:45
 msgid "Title"
 msgstr "عنوان"
 
-#: institute/models.py:22
+#: institute/models.py:22 institute/models.py:46
 msgid "Description"
 msgstr "توضیحات"
 
-#: institute/models.py:23
+#: institute/models.py:23 institute/models.py:47
 msgid "Image"
 msgstr "عکس"
 
@@ -109,7 +109,7 @@ msgstr "عکس"
 msgid "Date"
 msgstr "تاریخ"
 
-#: institute/models.py:25
+#: institute/models.py:25 institute/models.py:48
 msgid "Counter"
 msgstr "بازدید"
 
@@ -128,6 +128,14 @@ msgstr "پشتیبانی"
 #: institute/models.py:41
 msgid "AllSupport"
 msgstr "پشتیبانی ها"
+
+#: institute/models.py:51
+msgid "Service"
+msgstr "سرویس"
+
+#: institute/models.py:52
+msgid "Services"
+msgstr "سرویس ها"
 
 #: venv/lib/python3.6/site-packages/django_rest_passwordreset/models.py:28
 msgid "Password Reset Token"

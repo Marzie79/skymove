@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
+from django_rest_passwordreset.models import ResetPasswordToken
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from accounts.views import *
@@ -20,11 +21,15 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
+v1 = [
+    path('accounts/', include('accounts.urls')),
+    path('institute/', include('institute.urls')),
+]
+
 urlpatterns = [
-                  path('admin/', admin.site.urls),
-                  path('api/v1/accounts/', include(('accounts.urls', 'v2'), namespace='v2')),
-                  # path('api/v1/accounts/', include(('accounts.urls', 'v1'), namespace='v1')),
-                  path('api/v1/institute/', include(('institute.urls', 'v1'), namespace='v1')),
+                  path('admin/', admin.site.urls, admin.site.unregister(ResetPasswordToken)),
+                  path('api/v1/', include((v1, 'v1'), namespace='v1')),
+                  # path('api/v2/', include((v2, 'v2'), namespace='2')),
                   path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
                   path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -39,3 +39,14 @@ class Support(models.Model):
         ordering = ['-date']
         verbose_name = _("Support")
         verbose_name_plural = _("AllSupport")
+
+
+class Service(models.Model):
+    title = FarsiCharField(verbose_name=_("Title"), max_length=50)
+    description = tinymce_models.HTMLField(verbose_name=_("Description"))
+    image = models.ImageField(verbose_name=_("Image"), upload_to='service/')
+    counter = models.IntegerField(verbose_name=_("Counter"), default=0)
+
+    class Meta:
+        verbose_name = _("Service")
+        verbose_name_plural = _("Services")

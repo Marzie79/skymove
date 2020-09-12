@@ -85,7 +85,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
 
     ],
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
 }
 
 WSGI_APPLICATION = 'sky_movex.wsgi.application'

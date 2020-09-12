@@ -18,3 +18,9 @@ class SupportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Support
         fields = ('email', 'phone_number')
+
+
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = News
+        fields = '__all__'

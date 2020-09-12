@@ -1,6 +1,6 @@
 from django.test import TestCase
 from rest_framework.reverse import reverse
-from accounts.serializers import *
+from .views import *
 
 
 class UserModelTest(TestCase):
@@ -84,7 +84,7 @@ class UserModelTest(TestCase):
         self.assertEquals(phone_number, user.phone_number)
 
     def test_sign_up_correct_data(self):
-        response = self.client.post(reverse('sign_up'), data=self.j_son)
+        response = self.client.post(reverse('v1:sign_up'), data=self.j_son)
         self.assertEquals(response.status_code, 201)
 
     def test_not_unique_email_for_sign_up(self):
@@ -94,10 +94,10 @@ class UserModelTest(TestCase):
             "nationality": "IR",
             "first_name": "Farhad",
             "last_name": "Zand",
-            "phone_number": "+989369447797",
+            "phone_number": "+9809369447797",
             "company_name": "Asiya"
         }
-        response = self.client.post(reverse('sign_up'), data=repeat)
+        response = self.client.post(reverse('v1:sign_up'), data=repeat)
         self.assertEquals(response.status_code, 400)
 
     def test_sign_in_correct_data(self):
@@ -105,7 +105,7 @@ class UserModelTest(TestCase):
             "email": "mz00@gmail.com",
             "password": "12345678M"
         }
-        response = self.client.post(reverse('log_in'), data=person)
+        response = self.client.post(reverse('v1:log_in'), data=person)
         self.assertEquals(response.status_code, 200)
 
     def test_sign_in_wrong_password(self):
@@ -113,14 +113,14 @@ class UserModelTest(TestCase):
             "email": "mz00@gmail.com",
             "password": "12345678"
         }
-        response = self.client.post(reverse('log_in'), data=person)
+        response = self.client.post(reverse('v1:log_in'), data=person)
         self.assertEquals(response.status_code, 406)
 
     def test_sign_in_bad_request(self):
         person = {
             "password": "12345678M"
         }
-        response = self.client.post(reverse('log_in'), data=person)
+        response = self.client.post(reverse('v1:log_in'), data=person)
         self.assertEquals(response.status_code, 400)
 
     def test_sign_in_email_is_not_exist(self):
@@ -128,7 +128,7 @@ class UserModelTest(TestCase):
             "email": "alireza7900@gmail.com",
             "password": "12345678M"
         }
-        response = self.client.post(reverse('log_in'), data=person)
+        response = self.client.post(reverse('v1:log_in'), data=person)
         self.assertEquals(response.status_code, 404)
 
     def test_sign_in_user_is_not_validate(self):
@@ -136,28 +136,28 @@ class UserModelTest(TestCase):
             "email": "maz00@gmail.com",
             "password": "12345678M"
         }
-        response = self.client.post(reverse('log_in'), data=person)
+        response = self.client.post(reverse('v1:log_in'), data=person)
         self.assertEquals(response.status_code, 401)
 
     def test_validate_email_for_first_time(self):
         person = {
-            "email": "marzie.7900@gmail.com"
+            "email": "maz00@gmail.com"
         }
-        response = self.client.post(reverse('validate_email'), data=person)
+        response = self.client.post(reverse('v1:validate_email'), data=person)
         self.assertEquals(response.status_code, 200)
 
     def test_validate_email_when_user_is_valid(self):
         person = {
             "email": "mz00@gmail.com"
         }
-        response = self.client.post(reverse('validate_email'), data=person)
+        response = self.client.post(reverse('v1:validate_email'), data=person)
         self.assertEquals(response.status_code, 409)
 
     def test_validate_email_with_none_exist_email(self):
         person = {
             "email": "m00@gmail.com"
         }
-        response = self.client.post(reverse('validate_email'), data=person)
+        response = self.client.post(reverse('v1:validate_email'), data=person)
         self.assertEquals(response.status_code, 404)
 
     def test_validate_email_when_it_is_valid(self):
@@ -165,7 +165,7 @@ class UserModelTest(TestCase):
             "email": "mz00@gmail.com",
             "validation": "abcdef"
         }
-        response = self.client.post(path=reverse('validate_email_code'), data=person)
+        response = self.client.post(path=reverse('v1:validate_email_code'), data=person)
         self.assertEquals(response.status_code, 409)
 
     def test_validate_email_when_email_does_not_exist(self):
@@ -173,7 +173,7 @@ class UserModelTest(TestCase):
             "email": "m00@gmail.com",
             "validation": "abcdef"
         }
-        response = self.client.post(path=reverse('validate_email_code'), data=person)
+        response = self.client.post(path=reverse('v1:validate_email_code'), data=person)
         self.assertEquals(response.status_code, 404)
 
     def test_validate_email_set_correct_validate_code(self):
@@ -183,7 +183,7 @@ class UserModelTest(TestCase):
             "email": "maz00@gmail.com",
             "validation": self.user1.validation
         }
-        response = self.client.post(path=reverse('validate_email_code'), data=person)
+        response = self.client.post(path=reverse('v1:validate_email_code'), data=person)
         self.assertEquals(response.status_code, 200)
 
     def test_validate_email_set_wrong_validate_code(self):
@@ -193,7 +193,7 @@ class UserModelTest(TestCase):
             "email": "maz00@gmail.com",
             "validation": "dfm.e"
         }
-        response = self.client.post(path=reverse('validate_email_code'), data=person)
+        response = self.client.post(path=reverse('v1:validate_email_code'), data=person)
         self.assertEquals(response.status_code, 406)
 
     def test_custom_validation_error_empty_field(self):

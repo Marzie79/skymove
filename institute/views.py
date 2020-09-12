@@ -1,4 +1,5 @@
 from rest_framework import generics, permissions, status, viewsets
+# from rest_framework.pagination import PageNumberPagination
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from institute.serializers import *
@@ -15,11 +16,13 @@ class Contact_Us(viewsets.ModelViewSet):
         else:
             return SupportSerializer
 
-
     def retrieve(self, request, *args, **kwargs):
-        last_obj = Support.objects.latest('date')
-        serialize = SupportSerializer(last_obj)
-        return Response(serialize.data)
+        try:
+            last_obj = Support.objects.latest('date')
+            serialize = SupportSerializer(last_obj)
+            return Response(serialize.data)
+        except:
+            return Response({})
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -28,9 +31,14 @@ class Contact_Us(viewsets.ModelViewSet):
         return Response(status=status.HTTP_201_CREATED, data={'message': 'the message is saved'})
 
 
+# class LargeResultsSetPagination(PageNumberPagination):
+#     page_size = 1
+
+
 class News_List(generics.ListAPIView):
     serializer_class = NewsSerializer
     permission_classes = (permissions.AllowAny,)
+    # pagination_class = LargeResultsSetPagination
     queryset = News.objects.all()
 
 
@@ -38,6 +46,25 @@ class One_News(generics.RetrieveAPIView):
     serializer_class = NewsSerializer
     permission_classes = (permissions.AllowAny,)
     queryset = News.objects.all()
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.counter = instance.counter + 1
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+
+class Services_List(generics.ListAPIView):
+    serializer_class = ServiceSerializer
+    permission_classes = (permissions.AllowAny,)
+    queryset = Service.objects.all()
+
+
+class One_Service(generics.RetrieveAPIView):
+    serializer_class = ServiceSerializer
+    permission_classes = (permissions.AllowAny,)
+    queryset = Service.objects.all()
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()

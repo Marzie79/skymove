@@ -10,11 +10,19 @@ class ContactAdmin(admin.ModelAdmin):
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'counter', 'date')
+    list_display = ('id', 'title', 'date')
+    fields = ('title', 'description', 'image', 'date')
+    readonly_fields = ('date',)
     search_fields = ('date',)
 
 
 @admin.register(Support)
-class NewsAdmin(admin.ModelAdmin):
+class SupportAdmin(admin.ModelAdmin):
     list_display = ('id', 'email', 'phone_number', 'date')
     search_fields = ('date',)
+
+
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    fields = ('title', 'description', 'image')
+    list_display = ('id', 'title')

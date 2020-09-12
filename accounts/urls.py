@@ -2,7 +2,6 @@ from django.urls import path
 from accounts.views import *
 from django_rest_passwordreset.views import reset_password_request_token, reset_password_confirm
 
-
 urlpatterns = [
     # path('swagger.json/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     # path('swagger.yaml/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
