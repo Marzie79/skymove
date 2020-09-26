@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import *
 
 
-@admin.register(Contact)
+@admin.register(ContactUs)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'email', 'phone_number', 'message')
     search_fields = ('name',)
@@ -19,6 +19,7 @@ class NewsAdmin(admin.ModelAdmin):
 @admin.register(Support)
 class SupportAdmin(admin.ModelAdmin):
     list_display = ('id', 'email', 'phone_number', 'date')
+    readonly_fields = ('date',)
     search_fields = ('date',)
 
 
@@ -28,7 +29,8 @@ class ServiceAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
 
 
-@admin.register(NewsLetter)
-class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'email')
-    search_fields = ('email',)
+@admin.register(ABoutUs)
+class ABoutUsAdmin(admin.ModelAdmin):
+    fields = ('title', 'description', 'image', 'date')
+    readonly_fields = ('date',)
+    list_display = ('date',)

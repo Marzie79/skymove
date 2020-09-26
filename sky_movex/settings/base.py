@@ -1,5 +1,5 @@
 import os
-
+import json
 import environ
 
 env = environ.Env(
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'accounts.apps.AccountsConfig',
     'institute.apps.InstituteConfig',
+    'home.apps.HomeConfig',
     'django_rest_passwordreset',
     'tinymce',
 ]
@@ -119,9 +120,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'fa'
+# LANGUAGE_CODE = 'fa'
+#
+# TIME_ZONE = 'Asia/Tehran'
+#
+# USE_I18N = True
+#
+# USE_L10N = True
+#
+# USE_TZ = True
 
-TIME_ZONE = 'Asia/Tehran'
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 

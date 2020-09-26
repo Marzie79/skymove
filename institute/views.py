@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions, status, viewsets
-# from rest_framework.pagination import PageNumberPagination
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from institute.serializers import *
@@ -21,7 +21,7 @@ class Contact_Us(viewsets.ModelViewSet):
             last_obj = Support.objects.latest('date')
             serialize = SupportSerializer(last_obj)
             return Response(serialize.data)
-        except:
+        except Support.DoesNotExist:
             return Response({})
 
     def create(self, request, *args, **kwargs):
@@ -81,12 +81,19 @@ class Most_Viewed(generics.ListAPIView):
 
 
 class Home_News(generics.ListAPIView):
-    serializer_class = NewsSerializer
     permission_classes = (permissions.AllowAny,)
+    serializer_class = NewsSerializer
     queryset = News.objects.all().order_by('-date')[:4]
 
 
-class News_Letter(generics.CreateAPIView):
-    serializer_class = NewsLetterSerializer
+class A_Bout_Us(generics.RetrieveAPIView):
     permission_classes = (permissions.AllowAny,)
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    serializer_class = ABoutUsSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        try:
+            last_obj = ABoutUs.objects.latest('date')
+            serializer = ABoutUsSerializer(last_obj)
+            return Response(serializer.data)
+        except ABoutUs.DoesNotExist:
+            return Response({})

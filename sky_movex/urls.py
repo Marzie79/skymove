@@ -24,6 +24,7 @@ schema_view = get_schema_view(
 v1 = [
     path('accounts/', include('accounts.urls')),
     path('institute/', include('institute.urls')),
+    path('home/', include('home.urls')),
 ]
 
 urlpatterns = [

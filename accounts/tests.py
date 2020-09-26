@@ -5,8 +5,8 @@ from .views import *
 
 class UserModelTest(TestCase):
     @classmethod
-    def setUp(self):
-        self.j_son = {
+    def setUpTestData(cls):
+        cls.j_son = {
             "email": "marzie.7900@gmail.com",
             "password": "1234567F",
             "nationality": "IR",
@@ -16,17 +16,17 @@ class UserModelTest(TestCase):
             "company_name": "Asiya"
         }
 
-        self.user = User.objects.create(email='mz00@gmail.com', password='12345678M', nationality='IR',
-                                        first_name='مرضیه', last_name='معصوم زاده', phone_number='+989369447797',
-                                        company_name='saran', is_validate=True, validation='abcdef')
-        self.user.set_password(self.user.password)
-        self.user.save()
+        cls.user = User.objects.create(email='mz00@gmail.com', password='12345678M', nationality='IR',
+                                       first_name='مرضیه', last_name='معصوم زاده', phone_number='+989369447797',
+                                       company_name='saran', is_validate=True, validation='abcdef')
+        cls.user.set_password(cls.user.password)
+        cls.user.save()
 
-        self.user1 = User.objects.create(email='maz00@gmail.com', password='12345678M', nationality='IR',
-                                         first_name='سایه', last_name='نصیری', phone_number='+989369447797',
-                                         company_name='saran', is_validate=False)
-        self.user1.set_password(self.user.password)
-        self.user1.save()
+        cls.user1 = User.objects.create(email='maz00@gmail.com', password='12345678M', nationality='IR',
+                                        first_name='سایه', last_name='نصیری', phone_number='+989369447797',
+                                        company_name='saran', is_validate=False)
+        cls.user1.set_password(cls.user.password)
+        cls.user1.save()
 
     def test_serializer_not_send_password(self):
         user = User.objects.get(pk=1)
@@ -38,9 +38,9 @@ class UserModelTest(TestCase):
 
     # def test_for_sending_a_random_validation_code(self):
     #     j_son = {
-    #         "email": "farhad@gmil.com",
+    #         "email": "farhad@gmial.com",
     #         "password": "1234567F",
-    #         "nationality": "0037765786",
+    #         "nationality": "IR",
     #         "first_name": "Farhad",
     #         "last_name": "Zand",
     #         "phone_number": "09379870098",

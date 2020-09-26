@@ -5,8 +5,6 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
-from rest_framework.views import APIView
-
 from accounts.enums import *
 from accounts.serializers import *
 from accounts.util import sending_email
@@ -23,32 +21,30 @@ class Log_in(generics.GenericAPIView):
     serializer_class = LogInSerializer
 
     def post(self, request):
-        if 'email' in request.data:
-            try:
-                user = User.objects.get(email=request.data['email'])
-            except User.DoesNotExist:
-                # if the email isn't valid in database response 404
-                return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
+        try:
+            serializer = LogInSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user = User.objects.get(email=serializer.data['email'])
+        except User.DoesNotExist:
+            # if the email isn't valid in database response 404
+            return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
 
-            user_set = authenticate(email=request.data['email'], password=request.data['password'])
-            if user.is_validate:
-                if user_set is not None:
-                    # everything is ok then response 200
-                    token, created = Token.objects.get_or_create(user=user)
-                    return Response(status=status.HTTP_200_OK, data={'token': token.key})
-                else:
-                    # if password for that existing email isn't correct response 406
-                    return Response(status=status.HTTP_406_NOT_ACCEPTABLE,
-                                    data={'message': 'password is not correct'})
+        user_set = authenticate(email=serializer.data['email'], password=serializer.data['password'])
+        if user.is_validate:
+            if user_set is not None:
+                # everything is ok then response 200
+                token, created = Token.objects.get_or_create(user=user)
+                return Response(status=status.HTTP_200_OK, data={'token': token.key})
             else:
-                # if user doesn't validate email
-                return Response(status=status.HTTP_401_UNAUTHORIZED,
-                                data={
-                                    'email': request.data['email'], 'message': 'user should validate email'
-                                })
+                # if password for that existing email isn't correct response 406
+                return Response(status=status.HTTP_406_NOT_ACCEPTABLE,
+                                data={'message': 'password is not correct'})
         else:
-            # email doesn't exist in request
-            return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': 'request is not correct'})
+            # if user doesn't validate email
+            return Response(status=status.HTTP_401_UNAUTHORIZED,
+                            data={
+                                'email': serializer.data['email'], 'message': 'user should validate email'
+                            })
 
 
 class Validate_Send_Email(generics.GenericAPIView):
@@ -58,12 +54,14 @@ class Validate_Send_Email(generics.GenericAPIView):
 
     def post(self, request):
         try:
+            serializer = EmailAddressSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
             if request.user.is_authenticated:
                 user = request.user
-                user.email_2 = request.data['email']
+                user.email_2 = serializer.data['email']
                 user.save()
             else:
-                user = User.objects.get(email=request.data['email'])
+                user = User.objects.get(email=serializer.data['email'])
 
             if user.is_validate and user.email_2 is None:
                 return Response(status=status.HTTP_409_CONFLICT, data={'message': 'user is validate now'})
@@ -95,11 +93,13 @@ class Validate_Send_code(generics.GenericAPIView):
 
     def post(self, request):
         try:
-            user = User.objects.get(email=request.data['email'])
+            serializer = ValidationCodeSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user = User.objects.get(email=serializer.data['email'])
             if user.is_validate and user.email_2 is None:
                 return Response(status=status.HTTP_409_CONFLICT, data={'message': 'user is validate now'})
 
-            if user.validation == request.data['validation']:
+            if user.validation == serializer.data['validation']:
                 if user.email_2 is not None:
                     user.email = user.email_2
                     user.email_2 = None

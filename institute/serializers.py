@@ -4,7 +4,7 @@ from institute.models import *
 
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Contact
+        model = ContactUs
         fields = '__all__'
 
 
@@ -30,7 +30,7 @@ class ServiceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class NewsLetterSerializer(serializers.ModelSerializer):
+class ABoutUsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = NewsLetter
+        model = ABoutUs
         fields = '__all__'

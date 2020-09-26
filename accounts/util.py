@@ -22,7 +22,6 @@ def sending_email(validation, receiver, sender, sender_password):
                   </body>
                 </html>
                 """
-        print(validation)
         # Turn these into plain/html MIMEText objects
         part = MIMEText(html, "html")
 

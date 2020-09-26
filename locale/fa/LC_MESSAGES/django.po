@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0Report-Msgid-Bugs-To: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-12 22:58+0430\n"
+"POT-Creation-Date: 2020-09-26 17:55+0000\n"
 "PO-Revision-Date: 2019-11-05 00:38+0000\n"
 "Last-Translator: Z\n"
 "Language-Team: Persian digit-team.comLanguage: Fa\n"
@@ -33,8 +33,8 @@ msgstr "نام"
 msgid "Last name"
 msgstr "نام خانوادگی"
 
-#: accounts/models.py:16 institute/models.py:11 institute/models.py:34
-#: institute/models.py:56
+#: accounts/models.py:16 home/models.py:10 institute/models.py:11
+#: institute/models.py:34
 msgid "Email"
 msgstr "ایمیل"
 
@@ -74,43 +74,79 @@ msgstr "کاربر"
 msgid "Users"
 msgstr "کاربران"
 
+#: home/apps.py:7
+msgid "Home"
+msgstr ""
+
+#: home/models.py:13
+msgid "News letter"
+msgstr "گزارشگیر"
+
+#: home/models.py:14
+msgid "All news letter"
+msgstr "گزارشگیران"
+
+#: home/models.py:19 home/models.py:30 institute/models.py:24
+#: institute/models.py:36 institute/models.py:60
+msgid "Date"
+msgstr "تاریخ"
+
+#: home/models.py:23
+msgid "Video"
+msgstr "ویدیو"
+
+#: home/models.py:24
+msgid "Video in home"
+msgstr "ویدیو صفحه اصلی"
+
+#: home/models.py:28 institute/models.py:21 institute/models.py:45
+#: institute/models.py:56
+msgid "Title"
+msgstr "عنوان"
+
+#: home/models.py:29 institute/models.py:22 institute/models.py:46
+#: institute/models.py:57
+msgid "Description"
+msgstr "توضیحات"
+
+#: home/models.py:34
+msgid "A bout us in home"
+msgstr "درباره ما صفحه اصلی"
+
+#: home/models.py:35
+msgid "All a bout us in home"
+msgstr "اطلاعات صفحه درباره ما در صفحه اصلی"
+
+#: home/models.py:39 home/models.py:40 institute/models.py:23
+#: institute/models.py:47 institute/models.py:58
+msgid "Image"
+msgstr "عکس"
+
+#: home/models.py:44
+msgid "Picture"
+msgstr "تصویر"
+
+#: home/models.py:45
+msgid "Pictures"
+msgstr "تصاویر"
+
 #: institute/apps.py:7
-msgid "institute"
+msgid "Institute"
 msgstr "مؤسسه"
 
 #: institute/models.py:10
 msgid "Name"
 msgstr "نام"
 
-#: institute/models.py:13
+#: institute/models.py:13 institute/models.py:16
 msgid "Message"
 msgstr "پیام"
 
-#: institute/models.py:16
-msgid "Contact"
-msgstr "پیام"
-
 #: institute/models.py:17
-msgid "Contacts"
-msgstr "پیام ها"
+msgid "User's messages from contact us"
+msgstr "پیام کاربران از قسمت ارتباط با ما"
 
-#: institute/models.py:21 institute/models.py:45
-msgid "Title"
-msgstr "عنوان"
-
-#: institute/models.py:22 institute/models.py:46
-msgid "Description"
-msgstr "توضیحات"
-
-#: institute/models.py:23 institute/models.py:47
-msgid "Image"
-msgstr "عکس"
-
-#: institute/models.py:24 institute/models.py:36
-msgid "Date"
-msgstr "تاریخ"
-
-#: institute/models.py:25 institute/models.py:48
+#: institute/models.py:25 institute/models.py:48 institute/models.py:59
 msgid "Counter"
 msgstr "بازدید"
 
@@ -119,15 +155,15 @@ msgid "News"
 msgstr "خبر"
 
 #: institute/models.py:30
-msgid "All News"
+msgid "All news"
 msgstr "اخبار"
 
 #: institute/models.py:40
-msgid "Support"
+msgid "Support address"
 msgstr "پشتیبانی"
 
 #: institute/models.py:41
-msgid "Supports"
+msgid "Support addresses"
 msgstr "پشتیبانی ها"
 
 #: institute/models.py:51
@@ -138,13 +174,13 @@ msgstr "سرویس"
 msgid "Services"
 msgstr "سرویس ها"
 
-#: institute/models.py:59
-msgid "News Letter"
-msgstr "گزارشگیر"
+#: institute/models.py:64
+msgid "A bout us"
+msgstr "درباره ما"
 
-#: institute/models.py:60
-msgid "All News Letter"
-msgstr "گزارشگیران"
+#: institute/models.py:65
+msgid "All a bout us page's data"
+msgstr "اطلاعات صفحه درباره ما"
 
 #: venv/lib/python3.6/site-packages/django_rest_passwordreset/models.py:28
 msgid "Password Reset Token"

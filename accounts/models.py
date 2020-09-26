@@ -16,7 +16,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name=_("Email"), validators=[validate_email], max_length=255, unique=True)
     email_2 = models.EmailField(verbose_name=_("Email 2"), validators=[validate_email], max_length=255,
                                 unique=True, blank=True, null=True)
-    phone_number = PhoneNumberField(verbose_name=_("Phone number"), )
+    phone_number = PhoneNumberField(verbose_name=_("Phone number"), help_text="enter phone number with country code like : +98... " )
     company_name = FarsiCharField(verbose_name=_("Company name"), max_length=40, null=True, blank=True,
                                   error_messages={'max_length': "This email has already been registered."})
     validation = models.CharField(verbose_name=_("Validation"), max_length=6, null=True, blank=True)
