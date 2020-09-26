@@ -11,7 +11,7 @@ class ContactAdmin(admin.ModelAdmin):
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'date')
+    list_display = ('title', 'date')
     fields = ('title', 'description', 'image', 'date')
     readonly_fields = ('date',)
     search_fields = ('date',)
@@ -19,7 +19,7 @@ class NewsAdmin(admin.ModelAdmin):
 
 @admin.register(Support)
 class SupportAdmin(admin.ModelAdmin):
-    list_display = ('id', 'email', 'phone_number', 'date')
+    list_display = ('email', 'phone_number', 'date')
     readonly_fields = ('date',)
     search_fields = ('date',)
 

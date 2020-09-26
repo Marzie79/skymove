@@ -32,3 +32,16 @@ class A_Bout_Us_Home(generics.RetrieveAPIView):
             return Response(serializer.data)
         except ABoutUsHome.DoesNotExist:
             return Response({})
+
+
+class Social_Networks(generics.RetrieveAPIView):
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = SocialNetworkSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        try:
+            last_obj = SocialNetwork.objects.latest('id')
+            serializer = SocialNetworkSerializer(last_obj)
+            return Response(serializer.data)
+        except SocialNetwork.DoesNotExist:
+            return Response({})

@@ -26,3 +26,9 @@ class ABoutUsHomeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ABoutUsHome
         fields = ('description', 'title', 'pictures')
+
+
+class SocialNetworkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialNetwork
+        fields = '__all__'
