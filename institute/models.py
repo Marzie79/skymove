@@ -11,8 +11,10 @@ class ContactUs(models.Model):
     email = models.EmailField(verbose_name=_("Email"), validators=[validate_email], max_length=255)
     phone_number = PhoneNumberField(verbose_name=_("Phone number"), )
     message = models.TextField(verbose_name=_("Message"), )
+    check = models.BooleanField(verbose_name=_("Check"), default=False)
 
     class Meta:
+        ordering = ['-id']
         verbose_name = _("Message")
         verbose_name_plural = _("User's messages from contact us")
 

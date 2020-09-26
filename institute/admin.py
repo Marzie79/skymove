@@ -4,8 +4,9 @@ from .models import *
 
 @admin.register(ContactUs)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'email', 'phone_number', 'message')
+    list_display = ('name', 'email', 'phone_number', 'message', 'check')
     search_fields = ('name',)
+    list_filter = ('check',)
 
 
 @admin.register(News)

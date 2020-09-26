@@ -93,7 +93,7 @@ class A_Bout_Us(generics.RetrieveAPIView):
     def retrieve(self, request, *args, **kwargs):
         try:
             last_obj = ABoutUs.objects.latest('date')
-            serializer = ABoutUsSerializer(last_obj)
+            serializer = ABoutUsSerializer(last_obj, context={"request": request})
             return Response(serializer.data)
         except ABoutUs.DoesNotExist:
             return Response({})

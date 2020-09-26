@@ -21,4 +21,7 @@ class PictureAdminInline(admin.TabularInline):
 
 @admin.register(ABoutUsHome)
 class ClassAdmin(admin.ModelAdmin):
+    fields = ('title', 'description', 'date')
+    readonly_fields = ('date',)
+    list_display = ('title', 'date',)
     inlines = (PictureAdminInline,)

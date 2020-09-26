@@ -150,32 +150,34 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
-    )
+)
 
 # add fonts and plugins to tiny mce
 TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "paste,searchreplace,code,link,emoticons,image,imagetools,media",
+    "toolbar": "numlist bullist",
+    'plugins': "paste,searchreplace,code,link,emoticons,image,imagetools,media,advlist lists",
     "font_formats": "B Nazanin;" +
                     "Arial;" +
                     "Tahoma;" +
                     "Times New Roman;",
-    }
+    "selector": "textarea",
+}
 
 LOGGING = {
     'version': 1, 'disable_existing_loggers': False, 'formatters': {
         'verbose': {
             'format': '{levelname} {asctime} {module} {process:d} {'
                       'thread:d} {message}', 'style': '{',
-            },
         },
+    },
     'filters': {'require_debug_true': {'()': 'django.utils.log.RequireDebugTrue', }, },
     'handlers': {
         'console': {
             'level': 'DEBUG', 'filters': ['require_debug_true'], 'class': 'logging.StreamHandler',
             'formatter': 'verbose'
-            },
-        'file': {'level': 'WARNING', 'class': 'logging.FileHandler', 'filename': 'Django.log', },
         },
+        'file': {'level': 'WARNING', 'class': 'logging.FileHandler', 'filename': 'Django.log', },
+    },
     'loggers': {
         'django': {'handlers': ['console', 'file'], 'propagate': True, },
         # 'django.request': {
@@ -183,5 +185,5 @@ LOGGING = {
         #     'level': 'ERROR',
         #     'propagate': False,
         # },
-        },
-    }
+    },
+}

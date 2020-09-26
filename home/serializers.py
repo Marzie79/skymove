@@ -14,13 +14,13 @@ class HomeVideoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ABoutUsPicturesSerializer(serializers.HyperlinkedModelSerializer):
+class ABoutUsPicturesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ABoutUsHomeSlideShow
         fields = ('image',)
 
 
-class ABoutUsHomeSerializer(serializers.HyperlinkedModelSerializer):
+class ABoutUsHomeSerializer(serializers.ModelSerializer):
     pictures = ABoutUsPicturesSerializer(many=True, read_only=True)
 
     class Meta:
