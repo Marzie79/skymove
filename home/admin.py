@@ -10,9 +10,7 @@ class NewsLetterAdmin(admin.ModelAdmin):
 
 @admin.register(HomeVideo)
 class HomeVideoAdmin(admin.ModelAdmin):
-    list_display = ('date',)
-    readonly_fields = ('date',)
-    search_fields = ('date',)
+    list_display = ('video', 'active')
 
 
 class PictureAdminInline(admin.TabularInline):
@@ -21,15 +19,15 @@ class PictureAdminInline(admin.TabularInline):
 
 @admin.register(ABoutUsHome)
 class ABoutUsHomeAdmin(admin.ModelAdmin):
-    fields = ('title', 'description', 'date')
-    readonly_fields = ('date',)
-    list_display = ('title', 'date',)
+    fields = ('title', 'description', 'active')
+    list_display = ('title', 'active',)
     inlines = (PictureAdminInline,)
 
 
 @admin.register(SocialNetwork)
 class SocialNetworkAdmin(admin.ModelAdmin):
     fields = (
-        'phone_number', 'email', 'whats_app_phone_number', 'twitter', 'medium', 'facebook', 'telegram', 'instagram')
-    list_display = ('phone_number', 'email',)
+        'phone_number', 'email', 'whats_app_phone_number', 'twitter', 'medium', 'facebook', 'telegram', 'instagram',
+        'active')
+    list_display = ('phone_number', 'email', 'active')
     search_fields = ('phone_number', 'email',)

@@ -14,8 +14,12 @@ class Home_video(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         try:
-            last_obj = HomeVideo.objects.latest('date')
-            serializer = HomeVideoSerializer(last_obj, context={"request": request})
+            last_obj = HomeVideo.objects.filter(active=True)
+            if not last_obj:
+                last_obj = HomeVideo.objects.latest('id')
+                serializer = HomeVideoSerializer(last_obj, context={"request": request})
+            else:
+                serializer = HomeVideoSerializer(last_obj[0], context={"request": request})
             return Response(serializer.data)
         except HomeVideo.DoesNotExist:
             return Response({})
@@ -27,8 +31,12 @@ class A_Bout_Us_Home(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         try:
-            last_obj = ABoutUsHome.objects.latest('date')
-            serializer = ABoutUsHomeSerializer(last_obj, context={"request": request})
+            last_obj = ABoutUsHome.objects.filter(active=True)
+            if not last_obj:
+                last_obj = ABoutUsHome.objects.latest('id')
+                serializer = ABoutUsHomeSerializer(last_obj, context={"request": request})
+            else:
+                serializer = ABoutUsHomeSerializer(last_obj[0], context={"request": request})
             return Response(serializer.data)
         except ABoutUsHome.DoesNotExist:
             return Response({})
@@ -40,8 +48,12 @@ class Social_Networks(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         try:
-            last_obj = SocialNetwork.objects.latest('id')
-            serializer = SocialNetworkSerializer(last_obj)
+            last_obj = SocialNetwork.objects.filter(active=True)
+            if not last_obj:
+                last_obj = SocialNetwork.objects.latest('id')
+                serializer = SocialNetworkSerializer(last_obj)
+            else:
+                serializer = SocialNetworkSerializer(last_obj[0])
             return Response(serializer.data)
         except SocialNetwork.DoesNotExist:
             return Response({})

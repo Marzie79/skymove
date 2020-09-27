@@ -18,8 +18,12 @@ class Contact_Us(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         try:
-            last_obj = Support.objects.latest('date')
-            serialize = SupportSerializer(last_obj)
+            last_obj = Support.objects.filter(active=True)
+            if not last_obj:
+                last_obj = Support.objects.latest('id')
+                serialize = SupportSerializer(last_obj)
+            else:
+                serialize = SupportSerializer(last_obj[0])
             return Response(serialize.data)
         except Support.DoesNotExist:
             return Response({})
@@ -92,8 +96,12 @@ class A_Bout_Us(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         try:
-            last_obj = ABoutUs.objects.latest('date')
-            serializer = ABoutUsSerializer(last_obj, context={"request": request})
+            last_obj = ABoutUs.objects.filter(active=True)
+            if not last_obj:
+                last_obj = ABoutUs.objects.latest('id')
+                serializer = ABoutUsSerializer(last_obj, context={"request": request})
+            else:
+                serializer = ABoutUsSerializer(last_obj[0], context={"request": request})
             return Response(serializer.data)
         except ABoutUs.DoesNotExist:
             return Response({})

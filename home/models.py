@@ -17,21 +17,31 @@ class NewsLetter(models.Model):
 
 class HomeVideo(models.Model):
     video = models.FileField(upload_to='video_uploaded/')
-    date = models.DateTimeField(verbose_name=_("Date"), auto_now_add=True)
+    active = models.BooleanField(verbose_name=_("Active"), default=True,
+                                 help_text="if you set this field true this video is shown in home page")
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['-id']
         verbose_name = _("Video")
         verbose_name_plural = _("Video in home")
+
+    def clean(self):
+        if self.active:
+            objs = HomeVideo.objects.filter(active=True)
+            if self.pk:
+                objs = objs.exclude(pk=self.pk)
+            if objs.exists():
+                objs.update(active=False)
 
 
 class ABoutUsHome(models.Model):
     title = FarsiCharField(verbose_name=_("Title"), max_length=50)
     description = tinymce_models.HTMLField(verbose_name=_("Description"))
-    date = models.DateTimeField(verbose_name=_("Date"), auto_now_add=True)
+    active = models.BooleanField(verbose_name=_("Active"), default=True,
+                                 help_text="if you set this field true this information is shown in about us in home page")
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['-id']
         verbose_name = _("A bout us in home")
         verbose_name_plural = _("All a bout us in home")
 
@@ -51,16 +61,28 @@ class ABoutUsHomeSlideShow(models.Model):
 
 
 class SocialNetwork(models.Model):
-    phone_number = PhoneNumberField(verbose_name=_("Phone number"), )
+    phone_number = PhoneNumberField(verbose_name=_("Phone number"),
+                                    help_text="enter phone number with country code like : +98... ")
     email = models.EmailField(verbose_name=_("Email"), validators=[validate_email], max_length=255)
-    whats_app_phone_number = PhoneNumberField(verbose_name=_("Whats app phone number"), null=True, blank=True)
+    whats_app_phone_number = PhoneNumberField(verbose_name=_("Whats app phone number"), null=True, blank=True,
+                                              help_text="enter phone number with country code like : +98... ")
     twitter = models.URLField(verbose_name=_("twitter"), null=True, blank=True)
     instagram = models.URLField(verbose_name=_("Instagram"), null=True, blank=True)
     medium = models.URLField(verbose_name=_("Medium"), null=True, blank=True)
     telegram = models.URLField(verbose_name=_("Telegram"), null=True, blank=True)
     facebook = models.URLField(verbose_name=_("Facebook"), null=True, blank=True)
+    active = models.BooleanField(verbose_name=_("Active"), default=True,
+                                 help_text="if you set this field true this information is shown in footer of pages")
 
     class Meta:
         ordering = ['-id']
         verbose_name = _("Social network")
         verbose_name_plural = _("Social networks in footer")
+
+    def clean(self):
+        if self.active:
+            objs = SocialNetwork.objects.filter(active=True)
+            if self.pk:
+                objs = objs.exclude(pk=self.pk)
+            if objs.exists():
+                objs.update(active=False)

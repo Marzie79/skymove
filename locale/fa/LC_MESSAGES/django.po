@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0Report-Msgid-Bugs-To: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-26 21:02+0000\n"
+"POT-Creation-Date: 2020-09-27 12:51+0000\n"
 "PO-Revision-Date: 2019-11-05 00:38+0000\n"
 "Last-Translator: Z\n"
 "Language-Team: Persian digit-team.comLanguage: Fa\n"
@@ -33,8 +33,8 @@ msgstr "نام"
 msgid "Last name"
 msgstr "نام خانوادگی"
 
-#: accounts/models.py:16 home/models.py:11 home/models.py:55
-#: institute/models.py:11 institute/models.py:36
+#: accounts/models.py:16 home/models.py:10 home/models.py:66
+#: institute/models.py:11 institute/models.py:37
 msgid "Email"
 msgstr "ایمیل"
 
@@ -42,36 +42,36 @@ msgstr "ایمیل"
 msgid "Email 2"
 msgstr "ایمیل ۲"
 
-#: accounts/models.py:19 home/models.py:54 institute/models.py:12
-#: institute/models.py:37
+#: accounts/models.py:19 home/models.py:64 institute/models.py:12
+#: institute/models.py:38
 msgid "Phone number"
 msgstr "شماره تلفن"
 
-#: accounts/models.py:20
+#: accounts/models.py:21
 msgid "Company name"
 msgstr "نام شرکت"
 
-#: accounts/models.py:22
+#: accounts/models.py:23
 msgid "Validation"
 msgstr "اعتبارسنجی"
 
-#: accounts/models.py:23
+#: accounts/models.py:24
 msgid "Is validate"
 msgstr "معتبر"
 
-#: accounts/models.py:24
+#: accounts/models.py:25
 msgid "Is active"
 msgstr "فعال"
 
-#: accounts/models.py:25
+#: accounts/models.py:26
 msgid "Is admin"
 msgstr "ادمین"
 
-#: accounts/models.py:29
+#: accounts/models.py:30
 msgid "User"
 msgstr "کاربر"
 
-#: accounts/models.py:30
+#: accounts/models.py:31
 msgid "Users"
 msgstr "کاربران"
 
@@ -79,18 +79,18 @@ msgstr "کاربران"
 msgid "Home"
 msgstr "صفحه اصلی"
 
-#: home/models.py:15
+#: home/models.py:14
 msgid "News letter"
 msgstr "گزارشگیر"
 
-#: home/models.py:16
+#: home/models.py:15
 msgid "All news letter"
 msgstr "گزارشگیران"
 
-#: home/models.py:21 home/models.py:34 institute/models.py:26
-#: institute/models.py:38 institute/models.py:62
-msgid "Date"
-msgstr "تاریخ"
+#: home/models.py:20 home/models.py:40 home/models.py:74 institute/models.py:40
+#: institute/models.py:74
+msgid "Active"
+msgstr "فعال"
 
 #: home/models.py:25
 msgid "Video"
@@ -100,63 +100,67 @@ msgstr "ویدیو"
 msgid "Video in home"
 msgstr "ویدیو صفحه اصلی"
 
-#: home/models.py:32 institute/models.py:23 institute/models.py:47
-#: institute/models.py:58
+#: home/models.py:38 institute/models.py:24 institute/models.py:59
+#: institute/models.py:70
 msgid "Title"
 msgstr "عنوان"
 
-#: home/models.py:33 institute/models.py:24 institute/models.py:48
-#: institute/models.py:59
+#: home/models.py:39 institute/models.py:25 institute/models.py:60
+#: institute/models.py:71
 msgid "Description"
 msgstr "توضیحات"
 
-#: home/models.py:38
+#: home/models.py:45
 msgid "A bout us in home"
 msgstr "درباره ما صفحه اصلی"
 
-#: home/models.py:39
+#: home/models.py:46
 msgid "All a bout us in home"
 msgstr "اطلاعات صفحه درباره ما در صفحه اصلی"
 
-#: home/models.py:43 home/models.py:45 institute/models.py:25
-#: institute/models.py:49 institute/models.py:60
+#: home/models.py:50 home/models.py:52 institute/models.py:26
+#: institute/models.py:61 institute/models.py:72
 msgid "Image"
 msgstr "عکس"
 
-#: home/models.py:49
+#: home/models.py:56
 msgid "Picture"
 msgstr "تصویر"
 
-#: home/models.py:50
+#: home/models.py:57
 msgid "Pictures"
 msgstr "تصاویر"
 
-#: home/models.py:56
+#: home/models.py:67
 msgid "Whats app phone number"
 msgstr "شماره تلفن واتس اپ"
 
-#: home/models.py:57
+#: home/models.py:69
 msgid "twitter"
 msgstr "توییتر"
 
-#: home/models.py:58
+#: home/models.py:70
 msgid "Instagram"
 msgstr "اینستاگرام"
 
-#: home/models.py:59
+#: home/models.py:71
 msgid "Medium"
 msgstr "مدیوم"
 
-#: home/models.py:60
+#: home/models.py:72
 msgid "Telegram"
 msgstr "تلگرام"
 
-#: home/models.py:64
-msgid "Public network"
+#: home/models.py:73
+msgid "Facebook"
+msgstr "فیسبوک"
+
+#: home/models.py:79
+msgid "Social network"
 msgstr "شبکه های اجتماعی"
 
-#: home/models.py:65
-msgid "Public networks in footer"
+#: home/models.py:80
+msgid "Social networks in footer"
 msgstr "شبکه های اجتماعی در پاورقی"
 
 #: institute/apps.py:7
@@ -167,51 +171,55 @@ msgstr "مؤسسه"
 msgid "Name"
 msgstr "نام"
 
-#: institute/models.py:13 institute/models.py:18
+#: institute/models.py:14 institute/models.py:19
 msgid "Message"
 msgstr "پیام"
 
-#: institute/models.py:14
+#: institute/models.py:15
 msgid "Check"
 msgstr "چک"
 
-#: institute/models.py:19
+#: institute/models.py:20
 msgid "User's messages from contact us"
 msgstr "پیام کاربران از قسمت ارتباط با ما"
 
-#: institute/models.py:27 institute/models.py:50 institute/models.py:61
+#: institute/models.py:27
+msgid "Date"
+msgstr "تاریخ"
+
+#: institute/models.py:28 institute/models.py:62 institute/models.py:73
 msgid "Counter"
 msgstr "بازدید"
 
-#: institute/models.py:31
+#: institute/models.py:32
 msgid "News"
 msgstr "خبر"
 
-#: institute/models.py:32
+#: institute/models.py:33
 msgid "All news"
 msgstr "اخبار"
 
-#: institute/models.py:42
+#: institute/models.py:45
 msgid "Support address"
 msgstr "پشتیبانی"
 
-#: institute/models.py:43
+#: institute/models.py:46
 msgid "Support addresses"
 msgstr "پشتیبانی ها"
 
-#: institute/models.py:53
+#: institute/models.py:65
 msgid "Service"
 msgstr "سرویس"
 
-#: institute/models.py:54
+#: institute/models.py:66
 msgid "Services"
 msgstr "سرویس ها"
 
-#: institute/models.py:66
+#: institute/models.py:79
 msgid "A bout us"
 msgstr "درباره ما"
 
-#: institute/models.py:67
+#: institute/models.py:80
 msgid "All a bout us page's data"
 msgstr "اطلاعات صفحه درباره ما"
 

@@ -9,19 +9,15 @@ class ContactSerializer(serializers.ModelSerializer):
 
 
 class NewsSerializer(serializers.ModelSerializer):
-    # date = serializers.DateTimeField(format="%y-%m-%d %H:%M:%S")
-
     class Meta:
         model = News
         fields = '__all__'
-        # read_only_fields = ('date',)
-        # fields =  ('id', 'title', 'date' ,'description', 'counter', 'image')
 
 
 class SupportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Support
-        fields = ('email', 'phone_number')
+        fields = '__all__'
 
 
 class ServiceSerializer(serializers.ModelSerializer):
