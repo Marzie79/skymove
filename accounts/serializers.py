@@ -13,7 +13,7 @@ class LogInSerializer(serializers.Serializer):
 
 
 class ValidationCodeSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    email = serializers.EmailField(allow_blank=True, allow_null=True)
     validation = serializers.CharField(max_length=6)
 
 

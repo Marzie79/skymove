@@ -95,7 +95,10 @@ class Validate_Send_code(generics.GenericAPIView):
         try:
             serializer = ValidationCodeSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
-            user = User.objects.get(email=serializer.data['email'])
+            serialize = serializer.data
+            if serializer.data['email'] is '':
+                serialize['email'] = User.objects.get(validation=serializer.data['validation']).email
+            user = User.objects.get(email=serialize['email'])
             if user.is_validate and user.email_2 is None:
                 return Response(status=status.HTTP_409_CONFLICT, data={'message': 'user is validate now'})
 
@@ -105,6 +108,7 @@ class Validate_Send_code(generics.GenericAPIView):
                     user.email_2 = None
 
                 user.is_validate = True
+                user.validation = None
                 user.save()
             else:
                 return Response(status=status.HTTP_406_NOT_ACCEPTABLE,
