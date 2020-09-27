@@ -58,6 +58,7 @@ class SocialNetwork(models.Model):
     instagram = models.URLField(verbose_name=_("Instagram"), null=True, blank=True)
     medium = models.URLField(verbose_name=_("Medium"), null=True, blank=True)
     telegram = models.URLField(verbose_name=_("Telegram"), null=True, blank=True)
+    facebook = models.URLField(verbose_name=_("Facebook"), null=True, blank=True)
 
     class Meta:
         ordering = ['-id']
