@@ -22,7 +22,7 @@ class SupportSerializer(serializers.ModelSerializer):
 
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = News
+        model = Service
         fields = '__all__'
 
 
