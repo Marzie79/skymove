@@ -3,7 +3,6 @@ from django.utils.crypto import get_random_string
 from rest_framework import generics, permissions, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
-from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from accounts.enums import *
 from accounts.serializers import *
@@ -16,7 +15,6 @@ class Sign_up(generics.CreateAPIView):
 
 
 class Log_in(generics.GenericAPIView):
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
     permission_classes = (permissions.AllowAny,)
     serializer_class = LogInSerializer
 
@@ -48,7 +46,6 @@ class Log_in(generics.GenericAPIView):
 
 
 class Validate_Send_Email(generics.GenericAPIView):
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
     permission_classes = (permissions.AllowAny,)
     serializer_class = EmailAddressSerializer
 
@@ -87,7 +84,6 @@ class Validate_Send_Email(generics.GenericAPIView):
 
 
 class Validate_Send_code(generics.GenericAPIView):
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
     permission_classes = (permissions.AllowAny,)
     serializer_class = ValidationCodeSerializer
 
@@ -128,8 +124,6 @@ class Edit_Profile(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         instance = request.user
-        print(instance)
-        print(request.data)
         serializer = self.get_serializer(instance, data=request.data, partial=False)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)

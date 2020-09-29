@@ -1,6 +1,5 @@
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from institute.serializers import *
 from institute.models import *
@@ -8,7 +7,6 @@ from institute.models import *
 
 class Contact_Us(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
 
     def get_serializer_class(self):
         if self.action == 'create':
