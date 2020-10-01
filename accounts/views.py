@@ -4,6 +4,7 @@ from rest_framework import generics, permissions, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+
 from accounts.enums import *
 from accounts.serializers import *
 from accounts.util import sending_email
@@ -42,7 +43,7 @@ class Log_in(generics.GenericAPIView):
             return Response(status=status.HTTP_401_UNAUTHORIZED,
                             data={
                                 'email': serializer.data['email'], 'message': 'user should validate email'
-                            })
+                                })
 
 
 class Validate_Send_Email(generics.GenericAPIView):
@@ -66,7 +67,8 @@ class Validate_Send_Email(generics.GenericAPIView):
             user.validation = get_random_string(length=6)
             user.save()
             if request.user.is_authenticated:
-                message = sending_email(user.validation, user.email_2, Email.EMAIL_ADDRESS.value, Email.PASSWORD.value)
+                message = sending_email(user.validation, user.email_2, Email.EMAIL_ADDRESS.value,
+                                        Email.PASSWORD.value)
             else:
                 message = sending_email(user.validation, user.email, Email.EMAIL_ADDRESS.value,
                                         Email.PASSWORD.value)
@@ -77,7 +79,7 @@ class Validate_Send_Email(generics.GenericAPIView):
             return Response(status=status.HTTP_200_OK, data={
                 'message': 'sending email to user is successful',
                 'email': request.data['email']
-            })
+                })
         except User.DoesNotExist:
             # if the email isn't valid in database response 404
             return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
@@ -92,7 +94,7 @@ class Validate_Send_code(generics.GenericAPIView):
             serializer = ValidationCodeSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serialize = serializer.data
-            if serializer.data['email'] is '':
+            if serializer.data['email'] == '':
                 serialize['email'] = User.objects.get(validation=serializer.data['validation']).email
             user = User.objects.get(email=serialize['email'])
             if user.is_validate and user.email_2 is None:
