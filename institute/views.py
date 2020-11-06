@@ -7,7 +7,6 @@ from institute.models import *
 
 class ContactusViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = (permissions.AllowAny,)
-    lookup_value_regex = '[0-8a-f]{32}'
 
     def get_queryset(self):
         if self.action == 'create':
