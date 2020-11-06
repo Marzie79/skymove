@@ -27,7 +27,7 @@ class ABoutUsHomeAdmin(admin.ModelAdmin):
 @admin.register(SocialNetwork)
 class SocialNetworkAdmin(admin.ModelAdmin):
     fields = (
-        'phone_number', 'email', 'whats_app_phone_number', 'twitter', 'medium', 'facebook', 'telegram', 'instagram',
+        'phone_number', 'email', 'whats_app_phone_number', 'twitter', 'medium', 'facebook', 'telegram', 'instagram', 'address', 'map',
         'active')
     list_display = ('phone_number', 'email', 'active')
     search_fields = ('phone_number', 'email',)

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0Report-Msgid-Bugs-To: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 12:51+0000\n"
+"POT-Creation-Date: 2020-11-06 12:54+0330\n"
 "PO-Revision-Date: 2019-11-05 00:38+0000\n"
 "Last-Translator: Z\n"
 "Language-Team: Persian digit-team.comLanguage: Fa\n"
@@ -29,11 +29,11 @@ msgstr "ملیت"
 msgid "First name"
 msgstr "نام"
 
-#: accounts/models.py:15
+#: accounts/models.py:14
 msgid "Last name"
 msgstr "نام خانوادگی"
 
-#: accounts/models.py:16 home/models.py:10 home/models.py:66
+#: accounts/models.py:16 home/models.py:10 home/models.py:74
 #: institute/models.py:11 institute/models.py:37
 msgid "Email"
 msgstr "ایمیل"
@@ -42,26 +42,43 @@ msgstr "ایمیل"
 msgid "Email 2"
 msgstr "ایمیل ۲"
 
-#: accounts/models.py:19 home/models.py:64 institute/models.py:12
+#: accounts/models.py:19 home/models.py:72 institute/models.py:12
 #: institute/models.py:38
 msgid "Phone number"
 msgstr "شماره تلفن"
+
+#: accounts/models.py:20 home/models.py:78 institute/models.py:13
+#: institute/models.py:39
+msgid "Enter phone number with country code like : +98... "
+msgstr "شماره تلفن را یا کد کشوری آن وارد کنید مثل : ..98+ "
 
 #: accounts/models.py:21
 msgid "Company name"
 msgstr "نام شرکت"
 
-#: accounts/models.py:23
+#: accounts/models.py:22
 msgid "Validation"
 msgstr "اعتبارسنجی"
 
-#: accounts/models.py:24
+#: accounts/models.py:23
 msgid "Is validate"
 msgstr "معتبر"
+
+#: accounts/models.py:24
+msgid ""
+"If a user's email is validate select this item if this item is not selected "
+"user should validate her/his email with verification email."
+msgstr ""
+"اگر ایمل کاربر احراز هویت شده است این گزینه را انتخاب کنید اگر این گزینه "
+"انتخاب نشده باشد کاربر باید ایمل خود را احراز هویت کند."
 
 #: accounts/models.py:25
 msgid "Is active"
 msgstr "فعال"
+
+#: accounts/models.py:25
+msgid "A user with out this item can't use site features."
+msgstr "یک کاربر بدون این مورد نمی تواند از ویژگی های سایت استفاده کند."
 
 #: accounts/models.py:26
 msgid "Is admin"
@@ -79,87 +96,114 @@ msgstr "کاربران"
 msgid "Home"
 msgstr "صفحه اصلی"
 
-#: home/models.py:14
+#: home/models.py:14 home/models.py:15
 msgid "News letter"
 msgstr "گزارشگیر"
 
-#: home/models.py:15
-msgid "All news letter"
-msgstr "گزارشگیران"
+#: home/models.py:19 home/models.py:25
+msgid "Video"
+msgstr "ویدیو"
 
-#: home/models.py:20 home/models.py:40 home/models.py:74 institute/models.py:40
-#: institute/models.py:74
+#: home/models.py:19
+msgid "Size of video should be under 50 meg."
+msgstr "اندازه ویدیو باید کمتر از ۵۰ مگ باشد."
+
+#: home/models.py:20 home/models.py:40 home/models.py:84 institute/models.py:42
+#: institute/models.py:76
 msgid "Active"
 msgstr "فعال"
 
-#: home/models.py:25
-msgid "Video"
-msgstr "ویدیو"
+#: home/models.py:21
+msgid "If you set this field true this video is shown in home page."
+msgstr ""
+"اگر شما این ویژگی را انتخاب کنید این ویدیو در صفحه اصلی نمایش داده می شود."
 
 #: home/models.py:26
 msgid "Video in home"
 msgstr "ویدیو صفحه اصلی"
 
-#: home/models.py:38 institute/models.py:24 institute/models.py:59
-#: institute/models.py:70
+#: home/models.py:38 institute/models.py:24 institute/models.py:61
+#: institute/models.py:72
 msgid "Title"
 msgstr "عنوان"
 
-#: home/models.py:39 institute/models.py:25 institute/models.py:60
-#: institute/models.py:71
+#: home/models.py:39 institute/models.py:25 institute/models.py:62
+#: institute/models.py:73
 msgid "Description"
 msgstr "توضیحات"
 
-#: home/models.py:45
-msgid "A bout us in home"
+#: home/models.py:41
+msgid ""
+"If you set this field true this information is shown in about us in home "
+"page."
+msgstr ""
+"اگر شما این ویژگی را انتخاب کنید این اطلاعات در قسمت درباره ما صفحه اصلی "
+"نمایش داده می شوند."
+
+#: home/models.py:45 home/models.py:46
+msgid "About us in home"
 msgstr "درباره ما صفحه اصلی"
 
-#: home/models.py:46
-msgid "All a bout us in home"
-msgstr "اطلاعات صفحه درباره ما در صفحه اصلی"
-
-#: home/models.py:50 home/models.py:52 institute/models.py:26
-#: institute/models.py:61 institute/models.py:72
+#: home/models.py:58 home/models.py:60 institute/models.py:26
+#: institute/models.py:63 institute/models.py:74
 msgid "Image"
 msgstr "عکس"
 
-#: home/models.py:56
+#: home/models.py:64
 msgid "Picture"
 msgstr "تصویر"
 
-#: home/models.py:57
+#: home/models.py:65
 msgid "Pictures"
 msgstr "تصاویر"
 
-#: home/models.py:67
+#: home/models.py:75 institute/models.py:40
+msgid "Address"
+msgstr "آدرس"
+
+#: home/models.py:76 institute/models.py:41
+msgid "Map"
+msgstr "نقشه"
+
+#: home/models.py:76 institute/models.py:41
+msgid "Enter iframe tag from google map."
+msgstr "تگ آی فریم گرفته شده از گوگل را وارد کنید."
+
+#: home/models.py:77
 msgid "Whats app phone number"
 msgstr "شماره تلفن واتس اپ"
 
-#: home/models.py:69
+#: home/models.py:79
 msgid "twitter"
 msgstr "توییتر"
 
-#: home/models.py:70
+#: home/models.py:80
 msgid "Instagram"
 msgstr "اینستاگرام"
 
-#: home/models.py:71
+#: home/models.py:81
 msgid "Medium"
 msgstr "مدیوم"
 
-#: home/models.py:72
+#: home/models.py:82
 msgid "Telegram"
 msgstr "تلگرام"
 
-#: home/models.py:73
+#: home/models.py:83
 msgid "Facebook"
 msgstr "فیسبوک"
 
-#: home/models.py:79
+#: home/models.py:85
+msgid ""
+"If you set this field true this information is shown in footer of pages."
+msgstr ""
+"اگر شما این ویژگی را انتخاب کنید این اطلاعات در پاورقی نمایش داده می شوند."
+
+#: home/models.py:89
 msgid "Social network"
 msgstr "شبکه های اجتماعی"
 
-#: home/models.py:80
+#: home/models.py:90
 msgid "Social networks in footer"
 msgstr "شبکه های اجتماعی در پاورقی"
 
@@ -187,41 +231,51 @@ msgstr "پیام کاربران از قسمت ارتباط با ما"
 msgid "Date"
 msgstr "تاریخ"
 
-#: institute/models.py:28 institute/models.py:62 institute/models.py:73
+#: institute/models.py:28 institute/models.py:64 institute/models.py:75
 msgid "Counter"
 msgstr "بازدید"
 
-#: institute/models.py:32
+#: institute/models.py:32 institute/models.py:33
 msgid "News"
 msgstr "خبر"
 
-#: institute/models.py:33
-msgid "All news"
-msgstr "اخبار"
+#: institute/models.py:43
+msgid ""
+"If you set this field true this information is shown in support of about us "
+"page."
+msgstr ""
+"اگر شما این ویژگی را انتخاب کنید این اطلاعات در قسمت پشتیبانی صفحه درباره ما "
+"نمایش داده می شوند."
 
-#: institute/models.py:45
+#: institute/models.py:47
 msgid "Support address"
 msgstr "پشتیبانی"
 
-#: institute/models.py:46
+#: institute/models.py:48
 msgid "Support addresses"
 msgstr "پشتیبانی ها"
 
-#: institute/models.py:65
+#: institute/models.py:67
 msgid "Service"
 msgstr "سرویس"
 
-#: institute/models.py:66
+#: institute/models.py:68
 msgid "Services"
 msgstr "سرویس ها"
 
-#: institute/models.py:79
-msgid "A bout us"
+#: institute/models.py:77
+msgid "If you set this field true this information is shown in about us page."
+msgstr ""
+"اگر شما این ویژگی را انتخاب کنید این اطلاعات در صفحه درباره ما نمایش داده می "
+"شوند."
+
+#: institute/models.py:81
+msgid "About us"
 msgstr "درباره ما"
 
-#: institute/models.py:80
-msgid "All a bout us page's data"
-msgstr "اطلاعات صفحه درباره ما"
+#: institute/models.py:82
+msgid "About us page"
+msgstr "درباره ما"
 
 #: venv/lib/python3.6/site-packages/django_rest_passwordreset/models.py:28
 msgid "Password Reset Token"

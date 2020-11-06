@@ -5,7 +5,7 @@ from institute.models import *
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactUs
-        fields = '__all__'
+        fields = ('name', 'phone_number', 'email', 'message',)
 
 
 class NewsSerializer(serializers.ModelSerializer):

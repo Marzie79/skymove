@@ -1,12 +1,19 @@
-from rest_framework import generics, permissions, status, viewsets
-from rest_framework.pagination import PageNumberPagination
+from rest_framework import permissions, viewsets, generics, mixins
+# from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from institute.serializers import *
 from institute.models import *
 
 
-class Contact_Us(viewsets.ModelViewSet):
+class ContactusViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = (permissions.AllowAny,)
+    lookup_value_regex = '[0-8a-f]{32}'
+
+    def get_queryset(self):
+        if self.action == 'create':
+            return ContactUs.objects.all()
+        else:
+            return Support.objects.all()
 
     def get_serializer_class(self):
         if self.action == 'create':
@@ -14,39 +21,27 @@ class Contact_Us(viewsets.ModelViewSet):
         else:
             return SupportSerializer
 
-    def retrieve(self, request, *args, **kwargs):
+    def list(self, request, *args, **kwargs):
         try:
-            last_obj = Support.objects.filter(active=True)
+            last_obj = Support.objects.filter(active=True).last()
             if not last_obj:
                 last_obj = Support.objects.latest('id')
                 serialize = SupportSerializer(last_obj)
             else:
-                serialize = SupportSerializer(last_obj[0])
+                serialize = SupportSerializer(last_obj)
             return Response(serialize.data)
         except Support.DoesNotExist:
             return Response({})
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        return Response(status=status.HTTP_201_CREATED, data={'message': 'the message is saved'})
-
 
 # class LargeResultsSetPagination(PageNumberPagination):
-#     page_size = 1
+# page_size = 1
 
 
-class News_List(generics.ListAPIView):
+class NewsViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = NewsSerializer
     permission_classes = (permissions.AllowAny,)
     # pagination_class = LargeResultsSetPagination
-    queryset = News.objects.all()
-
-
-class One_News(generics.RetrieveAPIView):
-    serializer_class = NewsSerializer
-    permission_classes = (permissions.AllowAny,)
     queryset = News.objects.all()
 
     def retrieve(self, request, *args, **kwargs):
@@ -57,13 +52,7 @@ class One_News(generics.RetrieveAPIView):
         return Response(serializer.data)
 
 
-class Services_List(generics.ListAPIView):
-    serializer_class = ServiceSerializer
-    permission_classes = (permissions.AllowAny,)
-    queryset = Service.objects.all()
-
-
-class One_Service(generics.RetrieveAPIView):
+class ServicesViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ServiceSerializer
     permission_classes = (permissions.AllowAny,)
     queryset = Service.objects.all()
@@ -82,24 +71,24 @@ class Most_Viewed(generics.ListAPIView):
     queryset = News.objects.all().order_by('-counter', '-date')[:4]
 
 
-class Home_News(generics.ListAPIView):
-    permission_classes = (permissions.AllowAny,)
-    serializer_class = NewsSerializer
-    queryset = News.objects.all().order_by('-date')[:4]
-
-
 class A_Bout_Us(generics.RetrieveAPIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = ABoutUsSerializer
 
     def retrieve(self, request, *args, **kwargs):
         try:
-            last_obj = ABoutUs.objects.filter(active=True)
+            last_obj = ABoutUs.objects.filter(active=True).last()
             if not last_obj:
                 last_obj = ABoutUs.objects.latest('id')
                 serializer = ABoutUsSerializer(last_obj, context={"request": request})
             else:
-                serializer = ABoutUsSerializer(last_obj[0], context={"request": request})
+                serializer = ABoutUsSerializer(last_obj, context={"request": request})
             return Response(serializer.data)
         except ABoutUs.DoesNotExist:
             return Response({})
+
+
+class Home_News(generics.ListAPIView):
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = NewsSerializer
+    queryset = News.objects.all().order_by('-date')[:4]

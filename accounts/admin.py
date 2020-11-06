@@ -15,12 +15,11 @@ class UserAdmin(BaseUserAdmin):
     # that reference specific fields on auth.User.
     list_display = (
         '__str__', 'nationality', 'is_admin')
-    list_filter = ('is_admin',)
+    list_filter = ('is_admin', 'is_validate')
     fieldsets = (
         (None, {
             'fields': (
-                'validation', 'first_name', 'last_name', 'nationality', 'phone_number', 'email', 'company_name',
-                'password')
+                'first_name', 'last_name', 'nationality', 'phone_number', 'email', 'company_name', 'password')
         }),
         ('Permission', {'fields': ('is_admin', 'is_active', 'is_validate')}),
     )
@@ -32,8 +31,8 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-    search_fields = ('nationality',)
-    ordering = ('nationality',)
+    search_fields = ('phone_number', 'first_name', 'last_name')
+    ordering = ('-id',)
     filter_horizontal = ()
 
 

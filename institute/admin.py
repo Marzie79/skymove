@@ -19,7 +19,7 @@ class NewsAdmin(admin.ModelAdmin):
 
 @admin.register(Support)
 class SupportAdmin(admin.ModelAdmin):
-    list_display = ('email', 'phone_number', 'active')
+    list_display = ('email', 'phone_number', 'address', 'map', 'active')
 
 
 @admin.register(Service)

@@ -10,23 +10,23 @@ from utils.custom_fields import FarsiCharField
 
 class User(AbstractBaseUser, PermissionsMixin):
     nationality = CountryField(verbose_name=_("Nationality"), max_length=2, blank_label='(select country)')
-    first_name = FarsiCharField(verbose_name=_("First name"), max_length=30,
-                                error_messages={'max_length': "This email has already been registered."})
+    first_name = FarsiCharField(verbose_name=_("First name"), max_length=30,)
     last_name = FarsiCharField(verbose_name=_("Last name"), max_length=30)
+    # translate:
     email = models.EmailField(verbose_name=_("Email"), validators=[validate_email], max_length=255, unique=True)
     email_2 = models.EmailField(verbose_name=_("Email 2"), validators=[validate_email], max_length=255,
                                 unique=True, blank=True, null=True)
     phone_number = PhoneNumberField(verbose_name=_("Phone number"),
-                                    help_text="enter phone number with country code like : +98... ")
-    company_name = FarsiCharField(verbose_name=_("Company name"), max_length=40, null=True, blank=True,
-                                  error_messages={'max_length': "This email has already been registered."})
+                                    help_text=_("Enter phone number with country code like : +98... "))
+    company_name = FarsiCharField(verbose_name=_("Company name"), max_length=40, null=True, blank=True)
     validation = models.CharField(verbose_name=_("Validation"), max_length=6, null=True, blank=True)
-    is_validate = models.BooleanField(verbose_name=_("Is validate"), default=False)
-    is_active = models.BooleanField(verbose_name=_("Is active"), default=True)
+    is_validate = models.BooleanField(verbose_name=_("Is validate"), default=False,
+                                      help_text=_("If a user's email is validate select this item if this item is not selected user should validate her/his email with verification email."))
+    is_active = models.BooleanField(verbose_name=_("Is active"), default=True, help_text=_("A user with out this item can't use site features."))
     is_admin = models.BooleanField(verbose_name=_("Is admin"), default=False)
 
     class Meta:
-        ordering = ['nationality']
+        ordering = ['-id']
         verbose_name = _("User")
         verbose_name_plural = _("Users")
 
