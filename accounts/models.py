@@ -9,10 +9,9 @@ from utils.custom_fields import FarsiCharField
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    nationality = CountryField(verbose_name=_("Nationality"), max_length=2, blank_label='(select country)')
+    nationality = CountryField(verbose_name=_("Nationality"), max_length=2, blank_label='(select country)', default='IR')
     first_name = FarsiCharField(verbose_name=_("First name"), max_length=30,)
     last_name = FarsiCharField(verbose_name=_("Last name"), max_length=30)
-    # translate:
     email = models.EmailField(verbose_name=_("Email"), validators=[validate_email], max_length=255, unique=True)
     email_2 = models.EmailField(verbose_name=_("Email 2"), validators=[validate_email], max_length=255,
                                 unique=True, blank=True, null=True)

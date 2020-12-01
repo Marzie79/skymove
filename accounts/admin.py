@@ -15,7 +15,7 @@ class UserAdmin(BaseUserAdmin):
     # that reference specific fields on auth.User.
     list_display = (
         '__str__', 'nationality', 'is_admin')
-    list_filter = ('is_admin', 'is_validate')
+    list_filter = ('is_active', 'is_validate')
     fieldsets = (
         (None, {
             'fields': (

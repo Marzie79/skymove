@@ -43,7 +43,7 @@ class Log_in(generics.GenericAPIView):
             return Response(status=status.HTTP_401_UNAUTHORIZED,
                             data={
                                 'email': serializer.data['email'], 'message': 'user should validate email'
-                                })
+                            })
 
 
 class Validate_Send_Email(generics.GenericAPIView):
@@ -79,7 +79,7 @@ class Validate_Send_Email(generics.GenericAPIView):
             return Response(status=status.HTTP_200_OK, data={
                 'message': 'sending email to user is successful',
                 'email': request.data['email']
-                })
+            })
         except User.DoesNotExist:
             # if the email isn't valid in database response 404
             return Response(status=status.HTTP_404_NOT_FOUND, data={'message': 'email is not exist'})
@@ -105,8 +105,12 @@ class Validate_Send_code(generics.GenericAPIView):
                     user.email = user.email_2
                     user.email_2 = None
 
+                if user.nationality != 'IR':
+                    user.is_active = False
+
                 user.is_validate = True
                 user.validation = None
+
                 user.save()
             else:
                 return Response(status=status.HTTP_406_NOT_ACCEPTABLE,
