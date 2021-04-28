@@ -11,13 +11,16 @@ from utils.custom_fields import FarsiCharField
 class User(AbstractBaseUser, PermissionsMixin):
     nationality = CountryField(verbose_name=_("Nationality"), max_length=2, blank_label='(select country)', default='IR')
     first_name = FarsiCharField(verbose_name=_("First name"), max_length=30,)
+    # first_name_fa = FarsiCharField(verbose_name=_("First name Persian"), max_length=30, null=True, blank=True)
     last_name = FarsiCharField(verbose_name=_("Last name"), max_length=30)
+    # last_name_fa = FarsiCharField(verbose_name=_("Last name"), max_length=30, null=True, blank=True)
     email = models.EmailField(verbose_name=_("Email"), validators=[validate_email], max_length=255, unique=True)
     email_2 = models.EmailField(verbose_name=_("Email 2"), validators=[validate_email], max_length=255,
                                 unique=True, blank=True, null=True)
     phone_number = PhoneNumberField(verbose_name=_("Phone number"),
                                     help_text=_("Enter phone number with country code like : +98... "))
     company_name = FarsiCharField(verbose_name=_("Company name"), max_length=40, null=True, blank=True)
+
     validation = models.CharField(verbose_name=_("Validation"), max_length=6, null=True, blank=True)
     is_validate = models.BooleanField(verbose_name=_("Is validate"), default=False,
                                       help_text=_("If a user's email is validate select this item if this item is not selected user should validate her/his email with verification email."))

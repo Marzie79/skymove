@@ -36,7 +36,9 @@ class HomeVideo(models.Model):
 
 class ABoutUsHome(models.Model):
     title = FarsiCharField(verbose_name=_("Title"), max_length=50)
+    title_fa = FarsiCharField(verbose_name=_("Title Persian"), max_length=50, null=True, blank=True)
     description = tinymce_models.HTMLField(verbose_name=_("Description"))
+    description_fa = tinymce_models.HTMLField(verbose_name=_("Description Persian"), null=True, blank=True)
     active = models.BooleanField(verbose_name=_("Active"), default=True,
                                  help_text=_("If you set this field true this information is shown in about us in home page."))
 
@@ -55,7 +57,7 @@ class ABoutUsHome(models.Model):
 
 
 class ABoutUsHomeSlideShow(models.Model):
-    a_bout_us = models.ForeignKey(ABoutUsHome, verbose_name=_("Image"), on_delete=models.CASCADE,
+    a_bout_us = models.ForeignKey(ABoutUsHome, verbose_name=_("A Bout Us"), on_delete=models.CASCADE,
                                   related_name='pictures')
     image = models.ImageField(verbose_name=_("Image"), upload_to='a_bout_us_home/')
 
@@ -73,6 +75,7 @@ class SocialNetwork(models.Model):
                                     help_text="enter phone number with country code like : +98... ")
     email = models.EmailField(verbose_name=_("Email"), validators=[validate_email], max_length=255)
     address = FarsiTextField(verbose_name=_("Address"), null=True, blank=True)
+    address_fa = FarsiTextField(verbose_name=_("Address Persian"), null=True, blank=True)
     map = models.TextField(verbose_name=_("Map"), help_text=_("Enter iframe tag from google map."), null=True, blank=True)
     whats_app_phone_number = PhoneNumberField(verbose_name=_("Whats app phone number"), null=True, blank=True,
                                               help_text=_("Enter phone number with country code like : +98... "))
