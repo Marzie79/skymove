@@ -19,7 +19,7 @@ class PictureAdminInline(admin.TabularInline):
 
 @admin.register(ABoutUsHome)
 class ABoutUsHomeAdmin(admin.ModelAdmin):
-    fields = ('title', 'description', 'active')
+    fields = ('title', "title_fa",'description', "description_fa",'active')
     list_display = ('title', 'active',)
     inlines = (PictureAdminInline,)
 
@@ -27,7 +27,7 @@ class ABoutUsHomeAdmin(admin.ModelAdmin):
 @admin.register(SocialNetwork)
 class SocialNetworkAdmin(admin.ModelAdmin):
     fields = (
-        'phone_number', 'email', 'whats_app_phone_number', 'twitter', 'medium', 'facebook', 'telegram', 'instagram', 'address', 'map',
+        'phone_number', 'email', 'whats_app_phone_number', 'twitter', 'medium', 'facebook', 'telegram', 'instagram', 'address', "address_fa" ,'map',
         'active')
     list_display = ('phone_number', 'email', 'active')
     search_fields = ('phone_number', 'email',)
