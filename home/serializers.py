@@ -25,7 +25,7 @@ class ABoutUsHomeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ABoutUsHome
-        fields = ('description', 'title', 'pictures')
+        fields = ('description', 'description_fa', 'title', 'title_fa','pictures')
 
 
 class SocialNetworkSerializer(serializers.ModelSerializer):
