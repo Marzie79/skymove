@@ -29,3 +29,5 @@ class BaseForm(models.Model):
     gross_weight = models.CharField(
         _("Gross Weight"), max_length=255, null=True, blank=True
     )
+
+    
