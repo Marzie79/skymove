@@ -24,6 +24,7 @@ v1 = [
     path('accounts/', include('accounts.urls')),
     path('institute/', include('institute.routers')),
     path('home/', include('home.urls')),
+    path('form/', include('form.api.urls')),
 ]
 
 urlpatterns = [

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'institute.apps.InstituteConfig',
     'home.apps.HomeConfig',
+    'form.apps.FormConfig',
     'django_rest_passwordreset',
     'tinymce',
 ]
