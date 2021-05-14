@@ -1,7 +1,8 @@
 from rest_framework import status
 from rest_framework import permissions, viewsets, mixins
 from rest_framework.response import Response
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from form.api.serializers import *
 from form.models import *
 
@@ -13,7 +14,7 @@ class ShipmentView(
     viewsets.GenericViewSet,
 ):
     serializer_class = ShipmentSerializer
-    authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
     queryset = Shipment.objects.all()
 
     def create(self, validated_data):
@@ -21,3 +22,6 @@ class ShipmentView(
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+
+#
