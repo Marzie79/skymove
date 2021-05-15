@@ -9,7 +9,7 @@ class Optional(models.Model):
     airway_bill = models.IntegerField(_("Airway Bill"), null=True, blank=True)
     pick_up = models.IntegerField(_("Pick up"), null=True, blank=True)
     ordino = models.IntegerField(_("ordino"), null=True, blank=True)
-    customs = models.IntegerField(_("Customs "), null=True, blank=True)
+    customs = models.IntegerField(_("Customs"), null=True, blank=True)
     warehouse_fee = models.IntegerField(_("Warehouse Fee"), null=True, blank=True)
     document_under_our_compnay_name = models.IntegerField(
         _("Document Under Our Compnay Name"), null=True, blank=True

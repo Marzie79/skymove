@@ -8,7 +8,7 @@ class Mandatory(models.Model):
     airfreight = models.IntegerField(_("Airfreight"), null=True, blank=True)
     airway_bill = models.IntegerField(_("Airway Bill"), null=True, blank=True)
     pick_up = models.IntegerField(_("Pick up"), null=True, blank=True)
-    customs = models.IntegerField(_("Customs "), null=True, blank=True)
+    customs = models.IntegerField(_("Customs"), null=True, blank=True)
     sbl = models.IntegerField(_("SBL"), null=True, blank=True)
     other_charge = models.IntegerField(_("Other Charge"), null=True, blank=True)
 

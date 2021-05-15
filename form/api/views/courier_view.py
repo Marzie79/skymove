@@ -1,0 +1,27 @@
+from rest_framework import status
+from rest_framework import permissions, viewsets, mixins
+from rest_framework.response import Response
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from form.api.serializers import *
+from form.models import *
+
+
+class CourierView(
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet,
+):
+    serializer_class = CourierSerializer
+    permission_classes = (AllowAny,)
+    queryset = Courier.objects.all()
+
+    def create(self, validated_data):
+        serializer = self.get_serializer(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+
+#
