@@ -24,4 +24,7 @@ class Courier(models.Model):
         _("Custom Clearnace Sell"), null=True, blank=True
     )
     profit_sell = models.IntegerField(_("Profit Sell"), null=True, blank=True)
+    profit_sell_percentage = models.CharField(
+        _("Profit Sell Percentage"), null=True, blank=True, max_length=250
+    )
     profit = models.IntegerField(_("Profit"), null=True, blank=True)

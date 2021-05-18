@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('form', '0006_baseformcourier_courier_sellbuycourier'),
+        ("form", "0006_baseformcourier_courier_sellbuycourier"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='mandatory',
-            name='customs',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Customs'),
+            model_name="mandatory",
+            name="customs",
+            field=models.IntegerField(blank=True, null=True, verbose_name="Customs"),
         ),
         migrations.AlterField(
-            model_name='optional',
-            name='customs',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Customs'),
+            model_name="optional",
+            name="customs",
+            field=models.IntegerField(blank=True, null=True, verbose_name="Customs"),
         ),
     ]

@@ -19,7 +19,8 @@ class CourierSerializer(serializers.ModelSerializer):
             "total_sell",
             "custom_clearnace_buy",
             "custom_clearnace_sell",
-            "profit_sell", 
+            "profit_sell",
+            "profit_sell_percentage",
             "profit",
         ]
         read_only_fields = ("total_buy", "total_sell", "profit")
@@ -30,6 +31,7 @@ class CourierSerializer(serializers.ModelSerializer):
             "custom_clearnace_buy": {"allow_null": False, "required": True},
             "custom_clearnace_sell": {"allow_null": False, "required": True},
             "profit_sell": {"allow_null": False, "required": True},
+            "profit_sell_percentage": {"allow_null": True, "required": False},
         }
 
     def create(self, validated_data):

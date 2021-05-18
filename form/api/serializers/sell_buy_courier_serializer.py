@@ -9,10 +9,12 @@ class SellBuyCourierSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "ups_fee": {"allow_null": True, "required": False},
             "fuel_surcharge_ups": {"allow_null": True, "required": False},
+            "fuel_surcharge_ups_percentage": {"allow_null": True, "required": False},
             "eph_ups": {"allow_null": True, "required": False},
             "out_of_area_ups": {"allow_null": True, "required": False},
             "dhl_fee": {"allow_null": True, "required": False},
             "fuel_surcharge_dhl": {"allow_null": True, "required": False},
+            "fuel_surcharge_dhl_percentage": {"allow_null": True, "required": False},
             "eph_dhl": {"allow_null": True, "required": False},
             "out_of_area_dhl": {"allow_null": True, "required": False},
             "aramex_fee": {"allow_null": True, "required": False},
