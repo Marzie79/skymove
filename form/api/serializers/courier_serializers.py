@@ -17,13 +17,21 @@ class CourierSerializer(serializers.ModelSerializer):
             "buy",
             "total_buy",
             "total_sell",
+            "buy_cust",
+            "sell_cust_prof",
             "custom_clearnace_buy",
             "custom_clearnace_sell",
             "profit_sell",
             "profit_sell_percentage",
             "profit",
         ]
-        read_only_fields = ("total_buy", "total_sell", "profit")
+        read_only_fields = (
+            "total_buy",
+            "total_sell",
+            "buy_cust",
+            "sell_cust_prof",
+            "profit",
+        )
         extra_kwargs = {
             "base_form_courier": {"allow_null": False, "required": True},
             "sell": {"allow_null": False, "required": True},
@@ -79,6 +87,12 @@ class CourierSerializer(serializers.ModelSerializer):
             + validated_data["custom_clearnace_sell"]
             + validated_data["profit_sell"]
         )
+        buy_cust = total_buy + validated_data["custom_clearnace_buy"]
+        sell_cust_prof = (
+            total_sell
+            + validated_data["custom_clearnace_sell"]
+            + validated_data["profit_sell"]
+        )
         courier = Courier.objects.create(
             sell=sell_instance,
             buy=buy_instance,
@@ -86,6 +100,8 @@ class CourierSerializer(serializers.ModelSerializer):
             total_buy=total_buy,
             total_sell=total_sell,
             profit=total_sell - total_buy,
+            buy_cust=buy_cust,
+            sell_cust_prof=sell_cust_prof,
             **validated_data
         )
         return courier

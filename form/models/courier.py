@@ -28,3 +28,5 @@ class Courier(models.Model):
         _("Profit Sell Percentage"), null=True, blank=True, max_length=250
     )
     profit = models.IntegerField(_("Profit"), null=True, blank=True)
+    buy_cust = models.IntegerField(_("Buy_Cust"), null=True, blank=True)
+    sell_cust_prof = models.IntegerField(_("Sell_Cust_Prof"), null=True, blank=True)
