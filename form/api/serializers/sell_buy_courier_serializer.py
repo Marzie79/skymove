@@ -11,6 +11,7 @@ class SellBuyCourierSerializer(serializers.ModelSerializer):
             "fuel_surcharge_ups": {"allow_null": True, "required": False},
             "fuel_surcharge_ups_percentage": {"allow_null": True, "required": False},
             "eph_ups": {"allow_null": True, "required": False},
+            "eph_ups_percentage": {"allow_null": True, "required": False},
             "out_of_area_ups": {"allow_null": True, "required": False},
             "dhl_fee": {"allow_null": True, "required": False},
             "fuel_surcharge_dhl": {"allow_null": True, "required": False},
