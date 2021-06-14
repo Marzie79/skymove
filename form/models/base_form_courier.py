@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class BaseFormCourier(models.Model):
     date = models.DateField(_("Date"), blank=False, null=False)
-    consignee = models.CharField(_("Consignee"), max_length=255, null=True, blank=True)
+    consignee = models.ForeignKey("form.Consignee", null=True, blank=True, on_delete=models.SET_NULL)
     company_invoice_no = models.CharField(
         _("Company Invoice No"), max_length=255, null=True, blank=True
     )

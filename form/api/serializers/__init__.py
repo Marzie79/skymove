@@ -2,6 +2,7 @@ from .base_form_serializer import BaseFormSerializer
 from .base_form_courier_serializer import BaseFormCourierSerializer
 from .sell_buy_courier_serializer import SellBuyCourierSerializer
 from .courier_serializers import CourierSerializer
+from .consignee_serializer import ConsigneeSerializer
 from .mandatory_serializer import MandatorySerializer
 from .optional_serializer import OptionalSerializer
 from .shipment_serializer import ShipmentSerializer
