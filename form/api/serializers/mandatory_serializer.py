@@ -15,4 +15,8 @@ class MandatorySerializer(serializers.ModelSerializer):
             "customs": {"allow_null": True, "required": False},
             "sbl": {"allow_null": True, "required": False},
             "other_charge": {"allow_null": True, "required": False},
+            "other_charge_name": {"allow_null": True, "required": False},
+            "other_charge_second": {"allow_null": True, "required": False},
+            "other_charge_second_name": {"allow_null": True, "required": False},
         }
+

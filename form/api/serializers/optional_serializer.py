@@ -17,4 +17,7 @@ class OptionalSerializer(serializers.ModelSerializer):
             "warehouse_fee": {"allow_null": True, "required": False},
             "document_under_our_compnay_name": {"allow_null": True, "required": False},
             "other_charge": {"allow_null": True, "required": False},
+            "other_charge_name": {"allow_null": True, "required": False},
+            "other_charge_second": {"allow_null": True, "required": False},
+            "other_charge_second_name": {"allow_null": True, "required": False},
         }

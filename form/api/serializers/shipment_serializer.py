@@ -76,6 +76,7 @@ class ShipmentSerializer(serializers.ModelSerializer):
                 + buy_optional_instance.warehouse_fee
                 + buy_optional_instance.document_under_our_compnay_name
                 + buy_optional_instance.other_charge
+                + buy_optional_instance.other_charge_second
             )
             total_sell = (
                 total_sell
@@ -87,6 +88,7 @@ class ShipmentSerializer(serializers.ModelSerializer):
                 + sell_optional_instance.warehouse_fee
                 + sell_optional_instance.document_under_our_compnay_name
                 + sell_optional_instance.other_charge
+                + sell_optional_instance.other_charge_second
             )
             shipment = Shipment.objects.create(
                 sell_optional=sell_optional_instance,

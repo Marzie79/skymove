@@ -15,6 +15,10 @@ class Optional(models.Model):
         _("Document Under Our Compnay Name"), null=True, blank=True
     )
     other_charge = models.IntegerField(_("Other Charge"), null=True, blank=True)
+    other_charge_second = models.IntegerField(_("Other Charge_second"), null=True, blank=True)
+    other_charge_name = models.CharField(_("Other Charge Name"), max_length=255, null=True, blank=True)
+    other_charge_second_name = models.CharField(_("Other Charge Name Second"), max_length=255, null=True, blank=True)
+
 
     def save(self, *args, **kwargs):
         if (
@@ -26,5 +30,6 @@ class Optional(models.Model):
             or self.warehouse_fee
             or self.document_under_our_compnay_name
             or self.other_charge
+            or self.other_charge_second
         ):
             super(Optional, self).save(*args, **kwargs)
