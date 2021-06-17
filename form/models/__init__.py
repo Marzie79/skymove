@@ -2,6 +2,7 @@ from .base_form import BaseForm
 from .base_form_courier import BaseFormCourier
 from .sell_buy_courier import SellBuyCourier
 from .courier import Courier
+from .statement import Statement
 from .consignee import Consignee
 from .mandatory import Mandatory
 from .optional import Optional

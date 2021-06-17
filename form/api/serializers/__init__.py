@@ -6,3 +6,4 @@ from .consignee_serializer import ConsigneeSerializer
 from .mandatory_serializer import MandatorySerializer
 from .optional_serializer import OptionalSerializer
 from .shipment_serializer import ShipmentSerializer
+from .statement_serializer import StatemnetCreateSerializer
