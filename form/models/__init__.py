@@ -7,3 +7,4 @@ from .consignee import Consignee
 from .mandatory import Mandatory
 from .optional import Optional
 from .shipment import Shipment
+from .cost import Cost

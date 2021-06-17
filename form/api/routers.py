@@ -9,6 +9,6 @@ router.register("shipment", ShipmentView)
 router.register("courier", CourierView)
 router.register("consignee", ConsigneeView)
 router.register("statement", StatementView, "test")
-
+router.register("cost", CostView)
 
 urlpatterns = router.urls

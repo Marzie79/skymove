@@ -14,8 +14,9 @@ class ShipmentView(
     viewsets.GenericViewSet,
 ):
     serializer_class = ShipmentSerializer
-    permission_classes = (AllowAny,)
     queryset = Shipment.objects.all()
+    permission_classes = (AllowAny,)
+
 
     def create(self, validated_data):
         serializer = self.get_serializer(data=self.request.data)

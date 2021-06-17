@@ -15,9 +15,10 @@ class StatementView(
     viewsets.GenericViewSet,
 ):
     serializer_class = Statement
-    permission_classes = (AllowAny,)
     queryset = Statement.objects.all()
     lookup_fields = ["consignee", "currency"]
+    permission_classes = (AllowAny,)
+
 
     def get_serializer_class(self):
         if self.action == "create":

@@ -7,6 +7,7 @@ from form.api.serializers import *
 from form.models import *
 
 
+
 class CourierView(
     mixins.CreateModelMixin,
     mixins.RetrieveModelMixin,
@@ -14,8 +15,9 @@ class CourierView(
     viewsets.GenericViewSet,
 ):
     serializer_class = CourierSerializer
-    permission_classes = (AllowAny,)
     queryset = Courier.objects.all()
+    permission_classes = (AllowAny,)
+
 
     def create(self, validated_data):
         serializer = self.get_serializer(data=self.request.data)
