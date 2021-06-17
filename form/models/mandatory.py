@@ -11,9 +11,15 @@ class Mandatory(models.Model):
     customs = models.IntegerField(_("Customs"), null=True, blank=True)
     sbl = models.IntegerField(_("SBL"), null=True, blank=True)
     other_charge = models.IntegerField(_("Other Charge"), null=True, blank=True)
-    other_charge_second = models.IntegerField(_("Other Charge_second"), null=True, blank=True)
-    other_charge_name = models.CharField(_("Other Charge Name"), max_length=255, null=True, blank=True)
-    other_charge_second_name = models.CharField(_("Other Charge Name Second"), max_length=255, null=True, blank=True)
+    other_charge_second = models.IntegerField(
+        _("Other Charge_second"), null=True, blank=True
+    )
+    other_charge_name = models.CharField(
+        _("Other Charge Name"), max_length=255, null=True, blank=True
+    )
+    other_charge_second_name = models.CharField(
+        _("Other Charge Name Second"), max_length=255, null=True, blank=True
+    )
 
     def save(self, *args, **kwargs):
         if (

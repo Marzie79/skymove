@@ -10,7 +10,9 @@ class SellBuyCourier(models.Model):
     fuel_surcharge_ups_percentage = models.CharField(
         _("Fuel Surcharge UPS Percentage"), null=True, blank=True, max_length=250
     )
-    eph_ups_percentage = models.IntegerField(_("EPH UPS Percentage"), null=True, blank=True)
+    eph_ups_percentage = models.IntegerField(
+        _("EPH UPS Percentage"), null=True, blank=True
+    )
     eph_ups = models.IntegerField(_("EPH UPS"), null=True, blank=True)
     out_of_area_ups = models.IntegerField(_("Out Of Area UPS"), null=True, blank=True)
     dhl_fee = models.IntegerField(_("DHL Fee"), null=True, blank=True)

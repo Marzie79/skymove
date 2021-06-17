@@ -19,4 +19,3 @@ class MandatorySerializer(serializers.ModelSerializer):
             "other_charge_second": {"allow_null": True, "required": False},
             "other_charge_second_name": {"allow_null": True, "required": False},
         }
-

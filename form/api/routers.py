@@ -8,7 +8,7 @@ router = DefaultRouter()
 router.register("shipment", ShipmentView)
 router.register("courier", CourierView)
 router.register("consignee", ConsigneeView)
-router.register("statement", StatementView,"test")
+router.register("statement", StatementView, "test")
 
 
 urlpatterns = router.urls

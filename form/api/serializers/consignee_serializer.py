@@ -6,4 +6,3 @@ class ConsigneeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Consignee
         fields = "__all__"
-    

@@ -6,9 +6,11 @@ class BaseForm(models.Model):
     USD = "usd"
     EUR = "eur"
     TRY = "try"
-    CURRENCY_STATUS = ((USD, "usd"), (EUR,"eur"), (TRY, "try"))
+    CURRENCY_STATUS = ((USD, "usd"), (EUR, "eur"), (TRY, "try"))
     date = models.DateField(_("Date"), blank=False, null=False)
-    consignee = models.ForeignKey("form.Consignee", null=True, blank=True, on_delete=models.SET_NULL)
+    consignee = models.ForeignKey(
+        "form.Consignee", null=True, blank=True, on_delete=models.SET_NULL
+    )
     company_invoice_no = models.CharField(
         _("Company Invoice No"), max_length=255, null=True, blank=True
     )
@@ -17,7 +19,9 @@ class BaseForm(models.Model):
     )
     sender = models.CharField(_("Sender"), max_length=255, null=True, blank=True)
     receiver = models.CharField(_("Receiver"), max_length=255, null=True, blank=True)
-    currency = models.CharField(_("Currency"), max_length=255, null=True, blank=True, choices=CURRENCY_STATUS)
+    currency = models.CharField(
+        _("Currency"), max_length=255, null=True, blank=True, choices=CURRENCY_STATUS
+    )
     AWB_no_first = models.IntegerField(_("AWB No First"), null=True, blank=True)
     AWB_no_second = models.IntegerField(_("AWB No Second"), null=True, blank=True)
     from_in_base = models.CharField(_("From"), max_length=255, null=True, blank=True)
