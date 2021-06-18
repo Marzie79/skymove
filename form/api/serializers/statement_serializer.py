@@ -13,7 +13,9 @@ class StatemnetCreateSerializer(serializers.ModelSerializer):
         if max_order:
             max_value = max_order["order__max"]
             max_obj = Statement.objects.filter(order=max_value)
-            balance = validated_data["charge"] - max_obj.first().balance if max_obj else 0
+            print(max_obj.first())
+            
+            balance = validated_data["charge"] - (max_obj.first().balance if max_obj.first().balance else 0)
         else:
             max_value = 0
         statement = Statement.objects.create(
