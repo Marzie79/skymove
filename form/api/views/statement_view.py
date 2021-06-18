@@ -44,7 +44,7 @@ class StatementView(
                 .order_by("-base_form__date")
             )
             statements_courier = Statement.objects.filter(
-                courier__consignee=consignee,
+                courier__consignee=consignee.first(),
                 courier__base_form__currency=currency,
                 consignee__name=consignee_name,
             )
