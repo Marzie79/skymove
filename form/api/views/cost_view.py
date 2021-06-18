@@ -24,6 +24,12 @@ class CostView(
     def list(self, request, *args, **kwargs):
         if request.GET.get("create_date"):
             queryset = self.filter_queryset(self.get_queryset().filter(create_date__gt=request.GET.get("create_date")))
+        elif request.GET.get("date"):
+            queryset = self.filter_queryset(self.get_queryset().filter(date__gt=request.GET.get("date")))
+        elif request.GET.get("invoice"):
+            queryset = self.filter_queryset(self.get_queryset().filter(invoice__contains=request.GET.get("invoice")))
+        elif request.GET.get("company"):
+            queryset = self.filter_queryset(self.get_queryset().filter(company__contains=request.GET.get("company")))
         else:
             queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
