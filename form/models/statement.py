@@ -17,8 +17,8 @@ class Statement(models.Model):
     consignee = models.ForeignKey(
         "form.Consignee", null=True, blank=True, on_delete=models.SET_NULL
     )
-    charge = models.CharField(null=True, blank=True, max_length=255)
-    balance = models.CharField(null=True, blank=True, max_length=255)
+    charge = models.FloatField(null=True, blank=True, max_length=255)
+    balance = models.FloatField(null=True, blank=True, max_length=255)
     currency = models.CharField(
         null=True, blank=True, max_length=255, choices=CURRENCY_STATUS
     )

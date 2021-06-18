@@ -13,7 +13,7 @@ class Consignee(models.Model):
     )
     is_deleted = models.BooleanField(_("Is Deleted"), default=False)
     created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
-    name = models.CharField(_("Name"), max_length=250, null=True, blank=True)
+    name = models.CharField(_("Name"), max_length=250, null=True, blank=True, unique=True)
     address = models.TextField(_("Address"), null=True, blank=True)
     email = models.EmailField(_("Email"), null=True, blank=True)
     phone_number = PhoneNumberField(
